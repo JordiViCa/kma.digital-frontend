@@ -7,6 +7,7 @@ import { ProjectComponent } from './project/project.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { UserComponent } from './user/user.component';
 import { WorkComponent } from './work/work.component';
+import { ProjectAreaComponent } from '../layouts/project-area/project-area.component';
 
 
 
@@ -17,7 +18,8 @@ import { WorkComponent } from './work/work.component';
     ProjectComponent,
     ProjectsComponent,
     UserComponent,
-    WorkComponent
+    WorkComponent,
+    ProjectAreaComponent
   ],
   imports: [
     CommonModule,
