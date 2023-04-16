@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { AffiliatesComponent } from './affiliates/affiliates.component';
 import { LandingComponent } from './landing/landing.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
 import { PublicAreaRoutingModule } from './public-area-routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ContactComponent } from './contact/contact.component';
 
 
 
@@ -14,12 +14,13 @@ import { PublicAreaRoutingModule } from './public-area-routing.module';
     AboutUsComponent,
     AffiliatesComponent,
     LandingComponent,
-    LoginComponent,
-    RegisterComponent
+    ContactComponent,
   ],
   imports: [
     CommonModule,
-    PublicAreaRoutingModule
+    PublicAreaRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
   ]
 })
 export class PublicAreaModule { }

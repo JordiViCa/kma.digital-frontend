@@ -8,6 +8,8 @@ import { ProjectsComponent } from './projects/projects.component';
 import { UserComponent } from './user/user.component';
 import { WorkComponent } from './work/work.component';
 import { ProjectAreaComponent } from '../layouts/project-area/project-area.component';
+import { CompleteRegisterComponent } from './complete-register/complete-register.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -19,11 +21,13 @@ import { ProjectAreaComponent } from '../layouts/project-area/project-area.compo
     ProjectsComponent,
     UserComponent,
     WorkComponent,
-    ProjectAreaComponent
+    ProjectAreaComponent,
+    CompleteRegisterComponent
   ],
   imports: [
     CommonModule,
-    ClientAreaRoutingModule
+    ClientAreaRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class ClientAreaModule { }

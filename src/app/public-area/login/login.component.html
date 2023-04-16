@@ -1,3 +1,53 @@
-<p>
-  login works!
-</p>
+<div class="fixed p-3 top-0 bg-[#00000054] backdrop-blur-sm flex w-full h-full transition-all duration-200 {{ toggleLogin ? '':'opacity-0'}}" id="closePopupLogin" (click)="close($event)">
+  <div class="flex md:flex-row flex-col bg-gradient-to-tr md:bg-transparent from-blauc to-blaum transition-all duration-500 {{ toggleLogin ? '':'opacity-0'}} {{ toggleCards ? 'flex-col-reverse':''}} w-full md:w-auto m-auto overflow-hidden rounded-xl drop-shadow-xl shadow-xl select-none">
+    <div class="w-full md:w-1/2">
+      <div class="md:bg-gradient-to-tl from-blauc to-blaum p-5 duration-500 transition-all h-full flex flex-col {{ !toggleCards ? '':'w-full md:w-auto -translate-x-full md:-translate-x-0 absolute md:relative md:-translate-y-full'}}">
+        <h1 class="text-6xl text-[#2b2b2b] mb-6 text-center mt-auto {{!toggleCards ? '':'opacity-0 md:opacity-100'}}">LOGIN</h1>
+        <form (ngSubmit)="login()" class="flex flex-col mb-auto {{!toggleCards ? '':'opacity-0 md:opacity-100'}}" [formGroup]="loginForm">
+          <label class="block relative mb-4 min-w-[40%] group">
+            <span class="text-[#2b2b2b] uppercase text-lg pl-2">Email<span class="text-red-500 font-bold"> *</span></span>
+            <input class="border-b-2 w-full rounded-xl border-0 drop-shadow-sm hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ loginForm.controls['username'].invalid && loginForm.controls['username'].touched ? 'border-error animate-error':loginForm.controls['username'].touched ? 'border-correct':''}}" type="text" formControlName="username" name="username" required="required">
+          </label>
+          <label class="block relative mb-4 min-w-[40%]">
+            <span class="text-[#2b2b2b] uppercase text-lg pl-2">Password<span class="text-red-500 font-bold"> *</span></span>
+            <input class="border-b-2 w-full rounded-xl border-0 drop-shadow-sm hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ loginForm.controls['password'].invalid && loginForm.controls['password'].touched ? 'border-error animate-error':loginForm.controls['password'].touched ? 'border-correct':''}}" type="password" name="password" formControlName="password" required="required">
+          </label>
+          <button class="text-blancb bg-blue-700 hover:bg-blue-800 disabled:hover:bg-blue-700 disabled:opacity-70 disabled:cursor-not-allowed outline-none font-medium rounded-full px-10 py-2 text-center mx-auto text-lg drop-shadow-xl" type="submit" [disabled]="!loginForm.valid">
+            Enter
+          </button>
+        </form>
+      </div>
+      <div class="md:bg-blancb p-5 duration-500 transition-all h-full flex flex-col {{ !toggleCards ? 'absolute md:relative w-full md:w-auto translate-x-full md:-translate-x-0':'md:-translate-y-full'}}">
+        <p class="text-4xl text-[#2b2b2b] text-center mt-auto">HAVE<br>AN ACCOUNT?</p>
+        <p (click)="swap()" class="text-blue-700 font-bold text-2xl text-center mb-auto cursor-pointer">LOGIN</p>
+      </div>
+    </div>
+    <div class="w-full md:w-1/2">
+      <div class="md:bg-gradient-to-tr from-blauc to-blaum p-5 duration-500 transition-all h-full flex flex-col {{ toggleCards ? '':'w-full md:w-auto -translate-x-full md:-translate-x-0 absolute md:relative md:-translate-y-full'}}">
+        <h1 class="text-6xl text-[#2b2b2b] mb-6 text-center mt-auto {{toggleCards ? '':'opacity-0 md:opacity-100'}}">REGISTER</h1>
+        <form (ngSubmit)="register()" class="flex flex-col mb-auto {{toggleCards ? '':'opacity-0 md:opacity-100'}}" [formGroup]="registerForm">
+          <label class="block relative mb-4 min-w-[40%] group">
+            <span class="text-[#2b2b2b] uppercase text-lg pl-2">Email<span class="text-red-500 font-bold"> *</span></span>
+            <input class="border-b-2 w-full rounded-xl border-0 drop-shadow-sm hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ registerForm.controls['username'].invalid && registerForm.controls['username'].touched ? 'border-error animate-error':registerForm.controls['username'].touched ? 'border-correct':''}}" type="text" formControlName="username" name="username" required="required">
+          </label>
+          <label class="block relative mb-4 min-w-[40%]">
+            <span class="text-[#2b2b2b] uppercase text-lg pl-2">Password<span class="text-red-500 font-bold"> *</span></span>
+            <input class="border-b-2 w-full rounded-xl border-0 drop-shadow-sm hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ registerForm.controls['password'].invalid && registerForm.controls['password'].touched ? 'border-error animate-error':registerForm.controls['password'].touched ? 'border-correct':''}}" type="password" name="password" formControlName="password" required="required">
+            <span class="text-red-500 uppercase text-xs pl-2 absolute bottom-0 left-0 translate-y-[110%]"> {{ registerForm.controls['password'].invalid && registerForm.controls['password'].touched ? '8 characters, 1 uppercase, 1 lowercase and 1 number':'' }}</span>
+          </label>
+          <label class="block relative mb-4 min-w-[40%]">
+            <span class="text-[#2b2b2b] uppercase text-lg pl-2">Repeat password<span class="text-red-500 font-bold"> *</span></span>
+            <input class="border-b-2 w-full rounded-xl border-0 drop-shadow-sm hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ registerForm.controls['repeatPassword'].invalid && registerForm.controls['repeatPassword'].touched ? 'border-error animate-error':registerForm.controls['repeatPassword'].touched ? 'border-correct':''}}" type="password" name="repeatPassword" formControlName="repeatPassword" required="required">
+          </label>
+          <button class="text-blancb bg-blue-700 hover:bg-blue-800 disabled:hover:bg-blue-700 disabled:opacity-70 disabled:cursor-not-allowed outline-none font-medium rounded-full px-10 py-2 text-center mx-auto text-lg drop-shadow-xl" type="submit" [disabled]="!registerForm.valid">
+            Register
+          </button>
+        </form>
+      </div>
+      <div class="md:bg-blancb p-5 duration-500 transition-all h-full flex flex-col {{ toggleCards ? 'absolute md:relative w-full md:w-auto translate-x-full md:-translate-x-0':'md:-translate-y-full'}}">
+        <p class="text-4xl text-[#2b2b2b] text-center mt-auto">DON'T HAVE<br>AN ACCOUNT?</p>
+        <p (click)="swap()" class="text-blue-700 font-bold text-2xl text-center mb-auto cursor-pointer">SIGN UP</p>
+      </div>
+    </div>
+  </div>
+</div>

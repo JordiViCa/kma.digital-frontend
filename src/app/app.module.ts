@@ -9,15 +9,25 @@ import { AppRoutingModule } from './app-routing.module';
 import { ClientAreaComponent } from './layouts/client-area/client-area.component';
 import { PublicAreaComponent } from './layouts/public-area/public-area.component';
 import { WorkAreaComponent } from './layouts/work-area/work-area.component';
+import { LoginComponent } from './public-area/login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     ClientAreaComponent,
     PublicAreaComponent,
-    WorkAreaComponent
+    WorkAreaComponent,
+    LoginComponent,
   ],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [
+    BrowserModule, 
+    IonicModule.forRoot(), 
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule
+  ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

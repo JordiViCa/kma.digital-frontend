@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProjectAreaComponent } from '../layouts/project-area/project-area.component';
 import { ChatComponent } from './chat/chat.component';
+import { CompleteRegisterComponent } from './complete-register/complete-register.component';
 import { LandingComponent } from './landing/landing.component';
 import { ProjectComponent } from './project/project.component';
 import { ProjectsComponent } from './projects/projects.component';
@@ -11,36 +12,74 @@ import { WorkComponent } from './work/work.component';
 const routes: Routes = [
   {
     path: '',
-    component: LandingComponent
+    component: LandingComponent,
+    data: {
+      nav: 'translate-x-[300%]'
+    }
+  },
+  {
+    path: 'completeRegister',
+    component: CompleteRegisterComponent,
+    data: {
+      nav: 'translate-x-[300%]'
+    }
   },
   {
     path: 'chat',
-    component: ChatComponent
+    component: ChatComponent,
+    data: {
+      nav: 'translate-x-0'
+    }
   },
   {
     path: 'projects',
-    component: ProjectsComponent
+    component: ProjectsComponent,
+    data: {
+      nav: 'translate-x-[100%]'
+    }
   },
   {
     path: 'user',
-    component: UserComponent
+    component: UserComponent,
+    data: {
+      nav: 'translate-x-[200%]'
+    }
   },
   {
-    path: 'project/{id}',
+    path: 'projects/:id',
     component: ProjectAreaComponent,
+    data: {
+      nav: 'translate-x-[100%]'
+    },
     children: [
       {
         path: '',
-        component: WorkComponent
+        component: WorkComponent,
+        data: {
+          nav: 'translate-x-[100%]'
+        },
       },
       {
         path: 'info',
         component: ProjectComponent,
+        data: {
+          nav: 'translate-x-[100%]'
+        },
       },
       {
-        path: 'chat',
+        path: 'chats',
         component: ChatComponent,
-      }
+        data: {
+          nav: 'translate-x-[100%]'
+        },
+      },
+      {
+        path: 'chats/:idchat',
+        component: ChatComponent,
+        data: {
+          nav: 'translate-x-[100%]'
+        },
+      },
     ]
   },
 ];

@@ -1,3 +1,46 @@
-<p>
-  user works!
-</p>
+<div class="min-h-screen z-0 bg-blauf flex flex-col lg:flex-row lg:pt-20 xl:pt-32 lg:px-20 xl:px-32 px-4 pt-32 select-none">
+  <div class="mb-auto mx-auto flex flex-col gap-2 text-blancb">
+      <h1 class="text-4xl lg:text-6xl font-extrabold uppercase text-center mb-5">[USER] INFORMATION</h1>
+      <form (ngSubmit)="completeRegister()" class="flex flex-row flex-wrap gap-10 mb-auto" [formGroup]="editForm">
+        <div class="flex flex-row flex-wrap justify-center gap-10 shadow-lg rounded-2xl p-5 bg-[#00000011] w-full">
+          <h2 class="w-full text-2xl lg:text-4xl uppercase font-extrabold">User information</h2>
+          <label class="block relative mb-4 w-full md:w-[28%] lg:w-[30%] group">
+            <span class="text-blancb uppercase text-lg pl-2">Username</span>
+            <input class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ editForm.controls['username'].invalid && editForm.controls['username'].touched ? 'border-error animate-error':editForm.controls['username'].touched ? 'border-correct':''}}" type="text" formControlName="username" name="username" required="required">
+          </label>
+          <label class="block relative mb-4 w-full md:w-[28%] lg:w-[30%] group">
+            <span class="text-blancb uppercase text-lg pl-2">Name</span>
+            <input class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ editForm.controls['name'].invalid && editForm.controls['name'].touched ? 'border-error animate-error':editForm.controls['name'].touched ? 'border-correct':''}}" type="text" formControlName="name" name="name" required="required">
+          </label>
+          <label class="block relative mb-4 w-full md:w-[28%] lg:w-[30%] group">
+            <span class="text-blancb uppercase text-lg pl-2">Surname</span>
+            <input class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ editForm.controls['surname'].invalid && editForm.controls['surname'].touched ? 'border-error animate-error':editForm.controls['surname'].touched ? 'border-correct':''}}" type="text" formControlName="surname" name="surname" required="required">
+          </label>
+        </div>
+        <div class="flex flex-row flex-wrap gap-10 shadow-lg rounded-2xl justify-center p-5 bg-[#00000011] w-full">
+          <h2 class="w-full text-2xl lg:text-4xl uppercase font-extrabold">Company information</h2>
+          <label class="block relative mb-4 w-full md:w-[28%] lg:w-[30%] group">
+            <span class="text-blancb uppercase text-lg pl-2">Company name</span>
+            <input class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ editForm.controls['company'].invalid && editForm.controls['company'].touched ? 'border-error animate-error':editForm.controls['company'].touched ? 'border-correct':''}}" type="text" formControlName="company" name="company" required="required">
+          </label>
+          <label class="block relative mb-4 w-full md:w-[28%] lg:w-[30%] group">
+            <span class="text-blancb uppercase text-lg pl-2">Phone number</span>
+            <input class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ editForm.controls['phone'].invalid && editForm.controls['phone'].touched ? 'border-error animate-error':editForm.controls['phone'].touched ? 'border-correct':''}}" type="text" formControlName="phone" name="phone" required="required">
+          </label>
+          <label class="block relative mb-4 w-full md:w-[28%] lg:w-[30%] group">
+            <span class="text-blancb uppercase text-lg pl-2">CIF / NIF</span>
+            <input class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ editForm.controls['cif'].invalid && editForm.controls['cif'].touched ? 'border-error animate-error':editForm.controls['cif'].touched ? 'border-correct':''}}" type="text" formControlName="cif" name="cif" required="required">
+          </label>
+          <label class="block relative mb-4 w-full md:w-[calc(90%+1.5rem)] lg:w-[calc(90%+5rem)] group">
+            <span class="text-blancb uppercase text-lg pl-2">Company description</span>
+            <textarea class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0" type="text" formControlName="description" name="description" required="required"></textarea>
+          </label>
+        </div>
+        <div class="w-full pb-4">
+          <button class="text-blancb float-right bg-blue-700 hover:bg-blue-800 disabled:hover:bg-blue-700 disabled:opacity-70 disabled:cursor-not-allowed outline-none font-medium rounded-full px-10 py-2 text-center mx-auto text-lg drop-shadow-xl" type="submit" [disabled]="!editForm.valid">
+            Submit
+          </button>
+        </div>
+      </form>
+  </div>
+</div>
