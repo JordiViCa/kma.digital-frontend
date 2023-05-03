@@ -23,7 +23,7 @@ export class ClientAreaComponent  implements OnInit {
     this.userSVC.getActualUser().subscribe(
       (user: any) => {
         console.log("USER",user)
-        if (!user.client) { 
+        if (!user.data.client) { 
           this.disableAll = true;
           router.navigate(['/client/completeRegister']);
         }

@@ -15,7 +15,7 @@ export class UserService {
   ) { }
 
   createUser(params: any): Observable<any> {
-    return this.http.post(environment.strapiUrl + "auth/local/register", JSON.stringify(params), this.authSVC.getHeader())
+    return this.http.post(environment.backendUrl + "auth/register", JSON.stringify(params), this.authSVC.getHeader())
     .pipe(
       tap( res => res),
       catchError(() => of(false))
@@ -23,7 +23,7 @@ export class UserService {
   }
 
   loginUser(params: any): Observable<any> {
-    return this.http.post(environment.strapiUrl + "auth/local", JSON.stringify(params), this.authSVC.getHeader())
+    return this.http.post(environment.backendUrl + "auth/login", JSON.stringify(params), this.authSVC.getHeader())
     .pipe(
       tap( res => res),
       catchError(() => of(false))
@@ -31,7 +31,7 @@ export class UserService {
   }
 
   getActualUser(): Observable<any> {
-    return this.http.get(environment.strapiUrl + "users/me?populate=*", this.authSVC.getAuthHeader())
+    return this.http.get(environment.backendUrl + "auth/me", this.authSVC.getAuthHeader())
     .pipe(
       tap(res => res),
       catchError(() => of(false))
@@ -39,7 +39,15 @@ export class UserService {
   }
 
   createClient(params: any): Observable<any> {
-    return this.http.post(environment.strapiUrl + "clients?populate=*", JSON.stringify(params), this.authSVC.getAuthHeader())
+    return this.http.post(environment.backendUrl + "auth/client", JSON.stringify(params), this.authSVC.getAuthHeader())
+    .pipe(
+      tap( res => res),
+      catchError(() => of(false))
+    );
+  }
+
+  updateClient(params: any): Observable<any> {
+    return this.http.post(environment.backendUrl + "auth/client/update", JSON.stringify(params), this.authSVC.getAuthHeader())
     .pipe(
       tap( res => res),
       catchError(() => of(false))

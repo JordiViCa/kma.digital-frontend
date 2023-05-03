@@ -10,6 +10,10 @@ import { WorkComponent } from './work/work.component';
 import { ProjectAreaComponent } from '../layouts/project-area/project-area.component';
 import { CompleteRegisterComponent } from './complete-register/complete-register.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { ChatsComponent } from './chats/chats.component';
+import { ChatAreaComponent } from './chat-area/chat-area.component';
+import { ChatSelectorComponent } from './chat-selector/chat-selector.component';
 
 
 
@@ -22,12 +26,16 @@ import { ReactiveFormsModule } from '@angular/forms';
     UserComponent,
     WorkComponent,
     ProjectAreaComponent,
-    CompleteRegisterComponent
+    CompleteRegisterComponent,
+    ChatsComponent,
+    ChatAreaComponent,
+    ChatSelectorComponent,
   ],
   imports: [
     CommonModule,
     ClientAreaRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularEditorModule
   ]
 })
 export class ClientAreaModule { }

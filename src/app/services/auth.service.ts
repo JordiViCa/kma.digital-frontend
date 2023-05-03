@@ -32,7 +32,7 @@ export class AuthService {
   }
 
   private getActualUser(): Observable<any> {
-    return this.http.get(environment.strapiUrl + "users/me", this.getAuthHeader())
+    return this.http.get(environment.backendUrl + "auth/me", this.getAuthHeader())
     .pipe(
       tap(res => res),
       catchError(() => of(false))
@@ -48,8 +48,7 @@ export class AuthService {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.getPersistedToken()}`
-      }),
-      withCredentials: true
+      })
     }
   }
 

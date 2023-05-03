@@ -11,7 +11,6 @@ import { UserService } from 'src/app/services/user.service';
 export class CompleteRegisterComponent  implements OnInit {
 
   registerForm: FormGroup;
-  id!: string;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -31,8 +30,7 @@ export class CompleteRegisterComponent  implements OnInit {
     });
     this.userSVC.getActualUser().subscribe(
       (el: any) => {
-        this.registerForm.get('username')?.patchValue(el.email);
-        this.id = el.id;
+        this.registerForm.get('username')?.patchValue(el.data.email);
       }
     )
   }
@@ -46,16 +44,13 @@ export class CompleteRegisterComponent  implements OnInit {
       return
     }
     let params: any = {
-      "data": {
-        "name": this.registerForm.value.name,
-        "surname": this.registerForm.value.surname,
-        "company": this.registerForm.value.company,
-        "phone": this.registerForm.value.phone,
-        "cif": this.registerForm.value.cif,
-        "interests": this.registerForm.value.interests,
-        "description": this.registerForm.value.description,
-        "user": this.id
-      }
+      "name": this.registerForm.value.name,
+      "surname": this.registerForm.value.surname,
+      "company": this.registerForm.value.company,
+      "phone": this.registerForm.value.phone,
+      "cif": this.registerForm.value.cif,
+      "interests": this.registerForm.value.interests,
+      "description": this.registerForm.value.description
     }
     console.log(params)
     this.userSVC.createClient(params).subscribe((el: any) => {

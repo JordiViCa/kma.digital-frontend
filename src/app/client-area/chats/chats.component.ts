@@ -7,25 +7,61 @@ import { UserService } from 'src/app/services/user.service';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
-  selector: 'app-chat',
-  templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.scss'],
+  selector: 'app-chats',
+  templateUrl: './chats.component.html',
+  styleUrls: ['./chats.component.scss'],
 })
 
-export class ChatComponent  implements OnInit {
+export class ChatsComponent  implements OnInit {
 
-  toggleViewChats: boolean = false;
-
-  selectProject: boolean;
   project: string = "";
-  selectChat: boolean;
   chat: any;
   projects: any = {};
+  userId: string = "";
 
-
-  message: string = "";
+  newChatForm: FormGroup;
   errorMessage: boolean = false;
   createNewChat: boolean = false;
+
+  config: AngularEditorConfig = {
+    editable: true,
+    enableToolbar: true,
+    showToolbar: true,
+    //uploadUrl: 'v1/image',
+    //upload: (file: File) => { ... }
+    uploadWithCredentials: false,
+    sanitize: true,
+    toolbarPosition: 'top',
+    toolbarHiddenButtons: [
+      [
+        'undo',
+        'redo',
+        'strikeThrough',
+        'subscript',
+        'superscript',
+        'justifyLeft',
+        'justifyCenter',
+        'justifyRight',
+        'justifyFull',
+        'indent',
+        'outdent',
+        'insertOrderedList',
+        'heading',
+        'fontName'
+      ],
+      [
+        'textColor',
+        'backgroundColor',
+        'customClasses',
+        'link',
+        'unlink',
+        'insertVideo',
+        'insertHorizontalRule',
+        'removeFormat',
+        'toggleEditorMode'
+      ]
+    ]
+  };
 
   constructor(
     private chatSVC: ChatService,
@@ -35,14 +71,19 @@ export class ChatComponent  implements OnInit {
     private router: Router,
     private sanitizer: DomSanitizer
   ) {
-    
-    this.selectProject = false;
-    this.selectChat = false;
+    this.newChatForm = this.formBuilder.group({
+      title: ["",[Validators.required]],
+      htmlContent: ["",[Validators.required]]
+    });
+    this.userSVC.getActualUser().subscribe(
+      (user: any) => {
+        this.userId = user._id;
+      }
+    )
     if (this.route.snapshot.paramMap.get('idchat')) {
       this.chatSVC.getChat(this.route.snapshot.paramMap.get('idchat')!).subscribe(
         (chat: any) => {
           this.chat = chat.data;
-          this.toggleViewChats = true;
         }
       )
     }
@@ -67,10 +108,6 @@ export class ChatComponent  implements OnInit {
 
   ngOnInit() {}
 
-  updateMessage(message: any) {
-    this.message = message.target.innerText.replace(/\n/g,"<br>");
-  }
-
   getLenght(pr: any) {
     return pr.value.length > 1 ? pr.value.length + " chats":pr.value.length + " chat";
   }
@@ -82,20 +119,11 @@ export class ChatComponent  implements OnInit {
   getH(pr: any) {
     return "max-height: " + pr.length*32 + "px;";
   }
-  /*
+
   createChat() {
     if (this.newChatForm.invalid) {
       this.newChatForm.markAllAsTouched();
-      if (this.message.length == 0) {
-        this.errorMessage = true;
-      } else {
-        this.errorMessage = false;
-      }
       return
-    }
-    if (this.message.length == 0) {
-      this.errorMessage = true;
-      return;
     }
     this.errorMessage = false;
     let params: {
@@ -115,28 +143,11 @@ export class ChatComponent  implements OnInit {
         }
         let paramsMessage = {
           chat: el.data._id,
-          text: this.message
+          text: this.newChatForm.value.htmlContent
         }
         this.chatSVC.newMessage(paramsMessage).subscribe(
           (msg: any) => {
             this.router.navigateByUrl("/client/chat/"+el.data._id)
-          }
-        )
-      }
-    )
-  }
-  */
-
-  sendMessage(message: any) {
-    let paramsMessage = {
-      chat: this.chat._id,
-      text: message
-    }
-    this.chatSVC.newMessage(paramsMessage).subscribe(
-      (msg: any) => {
-        this.chatSVC.getChat(this.route.snapshot.paramMap.get('idchat')!).subscribe(
-          (chat: any) => {
-            this.chat = chat.data;
           }
         )
       }

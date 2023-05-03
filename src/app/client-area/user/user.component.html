@@ -1,7 +1,7 @@
 <div class="min-h-screen z-0 bg-blauf flex flex-col lg:flex-row lg:pt-20 xl:pt-32 lg:px-20 xl:px-32 px-4 pt-32 select-none">
   <div class="mb-auto mx-auto flex flex-col gap-2 text-blancb">
-      <h1 class="text-4xl lg:text-6xl font-extrabold uppercase text-center mb-5">[USER] INFORMATION</h1>
-      <form (ngSubmit)="completeRegister()" class="flex flex-row flex-wrap gap-10 mb-auto" [formGroup]="editForm">
+      <h1 class="text-4xl lg:text-6xl font-extrabold uppercase text-center mb-5">{{ editForm.value.name }} {{ editForm.value.surname }} INFORMATION</h1>
+      <form (ngSubmit)="completeEdit()" class="flex flex-row flex-wrap gap-10 mb-auto" [formGroup]="editForm">
         <div class="flex flex-row flex-wrap justify-center gap-10 shadow-lg rounded-2xl p-5 bg-[#00000011] w-full">
           <h2 class="w-full text-2xl lg:text-4xl uppercase font-extrabold">User information</h2>
           <label class="block relative mb-4 w-full md:w-[28%] lg:w-[30%] group">
@@ -37,7 +37,7 @@
           </label>
         </div>
         <div class="w-full pb-4">
-          <button class="text-blancb float-right bg-blue-700 hover:bg-blue-800 disabled:hover:bg-blue-700 disabled:opacity-70 disabled:cursor-not-allowed outline-none font-medium rounded-full px-10 py-2 text-center mx-auto text-lg drop-shadow-xl" type="submit" [disabled]="!editForm.valid">
+          <button class="text-blancb float-right bg-blue-700 hover:bg-blue-800 disabled:hover:bg-blue-700 disabled:opacity-70 disabled:cursor-not-allowed outline-none font-medium rounded-full px-10 py-2 text-center mx-auto text-lg drop-shadow-xl" type="submit" [disabled]="!editForm.dirty">
             Submit
           </button>
         </div>

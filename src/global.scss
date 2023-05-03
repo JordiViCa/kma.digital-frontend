@@ -36,3 +36,24 @@ body {
 .hideNav {
     display: none !important;
 }
+
+
+
+ul {
+    list-style: inherit !important;
+    margin: inherit !important;
+    padding: inherit !important;
+    padding-left: 20px !important;
+}
+
+.angular-editor-textarea {
+    height: 167px !important;
+    border-radius: 1.5rem;
+    @media (max-width: 768px) {
+        height: 120px !important;
+    }
+    resize: none !important;
+}
+.angular-editor-textarea {
+    @apply outline-none focus:outline-none ring-0 focus:ring-0;
+}

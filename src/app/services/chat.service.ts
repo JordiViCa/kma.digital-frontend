@@ -14,18 +14,35 @@ export class ChatService {
     private authSVC: AuthService
   ) { }
 
-  getChats(client: string): Observable<any> {
-    return this.http.get(environment.strapiUrl + "chats?filters[client]="+client, this.authSVC.getAuthHeader())
+  getChats(): Observable<any> {
+    return this.http.get(environment.backendUrl + "client/mychats", this.authSVC.getAuthHeader())
     .pipe(
       tap( res => res),
       catchError(() => of(false))
     );
   }
-  getChats2(): Observable<any> {
-    return this.http.get(environment.strapiUrl + "chats?populate=client", this.authSVC.getAuthHeader())
+
+  getChat(chat: string): Observable<any> {
+    return this.http.get(environment.backendUrl + "client/chat/"+chat, this.authSVC.getAuthHeader())
     .pipe(
       tap( res => res),
       catchError(() => of(false))
     );
+  }
+
+  newChat(params: any): Observable<any> {
+    return this.http.post(environment.backendUrl + "client/newchat", JSON.stringify(params), this.authSVC.getAuthHeader())
+    .pipe(
+      tap(res => res),
+      catchError(() => of(false))
+    )
+  }
+
+  newMessage(params: any): Observable<any> {
+    return this.http.post(environment.backendUrl + "client/sendmessage", JSON.stringify(params), this.authSVC.getAuthHeader())
+    .pipe(
+      tap(res => res),
+      catchError(() => of(false))
+    )
   }
 }

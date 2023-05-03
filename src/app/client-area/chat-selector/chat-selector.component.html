@@ -1,0 +1,16 @@
+<div class="bg-blancb md:pt-20 px-4 pt-4 gap-5 md:gap-3 flex-col w-full md:w-auto min-w-[300px] h-full">
+  <h1 class="text-4xl font-extrabold text-center mt-2 cursor-pointer" [routerLink]="['/client/chat']">CHATS</h1>
+  <div class="tabs">
+    <div class="bg-blaum rounded-3xl relative flex flex-col tab overflow-hidden" *ngFor="let pr of projects | keyvalue" (click)="setProject(pr)">
+      <div class="relative py-4 px-2 {{ project == pr.key ? 'shadow-md':'transition-all duration-1000'}}">
+        <span class="font-extrabold text-2xl my-auto uppercase min-w-[200px]">{{ pr.key == "noProject" ? "No project":pr.key }}<br><span class="text-xl">{{ getLenght(pr) }}</span></span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="absolute text-blancb h-10 w-10 right-2 top-1/2 transition-all duration-500 -translate-y-1/2 {{ project == pr.key ? 'rotate-45':''}}" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M256 112v288M400 256H112"/></svg>
+      </div>
+      <div [ngStyle]="{'max-height': project == $any(pr).key ? $any(pr).value.length*32+'px':'0px'}" class="transition-all duration-700 overflow-hidden">
+        <div *ngFor="let chat of $any(pr).value" [routerLink]="[pr.key == 'noProject' ? '/client/chat/'+chat._id:'/client/projects/'+chat.project._id+'/chats/'+chat._id]" class="hover:pl-6 pl-4 py-1 uppercase transition-all cursor-pointer duration-300">
+          {{ chat.titol | slice:0:25 }} {{ chat.titol.length > 25 ? '...':''}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+.startTyping {
+    @apply -translate-x-[100%] opacity-0;
+}
+.chatBox:focus + .startTyping {
+    opacity: 1;
+    --tw-translate-x: 0%;
+}
+

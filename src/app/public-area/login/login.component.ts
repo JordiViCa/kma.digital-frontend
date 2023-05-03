@@ -56,12 +56,14 @@ export class LoginComponent  implements OnInit {
       return
     }
     let params: any = {
-      identifier: this.loginForm.value.username,
+      email: this.loginForm.value.username,
       password: this.loginForm.value.password
     }
     this.userSVC.loginUser(params).subscribe((el: any) => {
       console.log('User logged',el)
       if (el == false) {
+        this.loginForm.controls["username"].setErrors({invalid: true})
+        this.loginForm.controls["password"].setErrors({invalid: true})
         return;
       }
       this.tokenSVC.saveToken(el.jwt);
@@ -95,6 +97,7 @@ export class LoginComponent  implements OnInit {
   }
 
   close(event: any) {
+    console.log(event)
     if (event.target.id == "closePopupLogin") {
       this.closePopUp.emit(true);
     }

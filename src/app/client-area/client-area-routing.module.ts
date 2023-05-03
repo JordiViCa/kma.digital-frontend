@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProjectAreaComponent } from '../layouts/project-area/project-area.component';
 import { ChatComponent } from './chat/chat.component';
+import { ChatsComponent } from './chats/chats.component';
 import { CompleteRegisterComponent } from './complete-register/complete-register.component';
 import { LandingComponent } from './landing/landing.component';
 import { ProjectComponent } from './project/project.component';
@@ -26,6 +27,13 @@ const routes: Routes = [
   },
   {
     path: 'chat',
+    component: ChatComponent,
+    data: {
+      nav: 'translate-x-0'
+    }
+  },
+  {
+    path: 'chat/:idchat',
     component: ChatComponent,
     data: {
       nav: 'translate-x-0'

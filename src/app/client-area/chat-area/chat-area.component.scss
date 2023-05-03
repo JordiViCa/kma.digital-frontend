@@ -1,0 +1,9 @@
+:host {
+    height: auto;
+    width: 100%;
+    @media (min-width: 768px) {
+        .md\:w-auto {
+            width: 100%;
+        }
+    }
+}
