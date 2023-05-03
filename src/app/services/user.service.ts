@@ -47,7 +47,7 @@ export class UserService {
   }
 
   updateClient(params: any): Observable<any> {
-    return this.http.post(environment.backendUrl + "auth/client/update", JSON.stringify(params), this.authSVC.getAuthHeader())
+    return this.http.put(environment.backendUrl + "auth/client", JSON.stringify(params), this.authSVC.getAuthHeader())
     .pipe(
       tap( res => res),
       catchError(() => of(false))
