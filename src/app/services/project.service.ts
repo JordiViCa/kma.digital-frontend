@@ -1,31 +1,48 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { catchError, Observable, of, tap } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectService {
 
-  constructor() { }
+  constructor(
+    private http: HttpClient,
+    private authSVC: AuthService
+  ) { }
 
   getProjects(): Observable<any> {
-    return of([
-      {
-        name: 'stayfit',
-        id: '1'
-      },
-      {
-        name: 'loremipsum',
-        id: '2'
-      },
-      {
-        name: 'defaultnames',
-        id: '3'
-      }
-    ])
+    return this.http.get(environment.backendUrl + "projects", this.authSVC.getAuthHeader())
+    .pipe(
+      tap(res => res),
+      catchError(() => of(false))
+    );
   }
 
   getProject(id: any): Observable<any> {
-    return of(false)
+    return this.http.get(environment.backendUrl + "projects/"+id, this.authSVC.getAuthHeader())
+    .pipe(
+      tap(res => res),
+      catchError(() => of(false))
+    );
+  }
+
+  createProject(params: any): Observable<any> {
+    return this.http.post(environment.backendUrl + "projects", JSON.stringify(params), this.authSVC.getAuthHeader())
+    .pipe(
+      tap( res => res),
+      catchError(() => of(false))
+    );
+  }
+
+  searchFiveProjects(text: any): Observable<any> {
+    return this.http.get(environment.backendUrl + "projects/getfive/"+text, this.authSVC.getAuthHeader())
+    .pipe(
+      tap( res => res),
+      catchError(() => of(false))
+    );
   }
 }

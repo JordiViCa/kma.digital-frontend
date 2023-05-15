@@ -14,6 +14,22 @@ export class ChatService {
     private authSVC: AuthService
   ) { }
 
+  getProjectChats(id: any): Observable<any> {
+    return this.http.get(environment.backendUrl + "client/project/"+id, this.authSVC.getAuthHeader())
+    .pipe(
+      tap( res => res),
+      catchError(() => of(false))
+    );
+  }
+
+  getAllChats(): Observable<any> {
+    return this.http.get(environment.backendUrl + "client/allChats", this.authSVC.getAuthHeader())
+    .pipe(
+      tap( res => res),
+      catchError(() => of(false))
+    );
+  }
+
   getChats(): Observable<any> {
     return this.http.get(environment.backendUrl + "client/mychats", this.authSVC.getAuthHeader())
     .pipe(
@@ -40,6 +56,30 @@ export class ChatService {
 
   newMessage(params: any): Observable<any> {
     return this.http.post(environment.backendUrl + "client/sendmessage", JSON.stringify(params), this.authSVC.getAuthHeader())
+    .pipe(
+      tap(res => res),
+      catchError(() => of(false))
+    )
+  }
+
+  markAsRead(id: any): Observable<any> {
+    return this.http.put(environment.backendUrl + "client/markAsRead/"+id, JSON.stringify({}), this.authSVC.getAuthHeader())
+    .pipe(
+      tap(res => res),
+      catchError(() => of(false))
+    )
+  }
+
+  resolveChat(id: any): Observable<any> {
+    return this.http.put(environment.backendUrl + "client/resolve/"+id, JSON.stringify({}), this.authSVC.getAuthHeader())
+    .pipe(
+      tap(res => res),
+      catchError(() => of(false))
+    )
+  }
+
+  updateChat(params: any, id: any): Observable<any> {
+    return this.http.put(environment.backendUrl + "client/update/"+id, JSON.stringify(params), this.authSVC.getAuthHeader())
     .pipe(
       tap(res => res),
       catchError(() => of(false))

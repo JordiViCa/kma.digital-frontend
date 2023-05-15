@@ -53,5 +53,13 @@ export class UserService {
       catchError(() => of(false))
     );
   }
+
+  searchFiveClients(text: any): Observable<any> {
+    return this.http.get(environment.backendUrl + "auth/client/"+text, this.authSVC.getAuthHeader())
+    .pipe(
+      tap( res => res),
+      catchError(() => of(false))
+    );
+  }
   
 }

@@ -1,0 +1,30 @@
+<div *ngIf="show" (mousedown)="close($event)" id="closePopup" class="fixed p-3 top-0 bg-[#00000054] backdrop-blur-sm flex w-full h-full transition-all duration-200" (mousedown)="close($event)">
+  <div class="flex min-w-[80vw] md:min-w-[50vw] md:flex-row flex-col bg-gradient-to-t md:bg-transparent from-blauf to-blaum transition-all duration-500 w-full md:w-auto m-auto overflow-hidden rounded-xl drop-shadow-xl shadow-xl select-none">
+    <form (ngSubmit)="createTask()" class="flex flex-col mb-auto w-full p-10" [formGroup]="taskForm">
+      <h1 class="text-2xl lg:text-4xl font-extrabold uppercase text-center mb-5 text-blancb">CREATE TASK</h1>
+      <label class="block relative mb-4 w-full group">
+        <span class="text-blancb uppercase text-lg pl-2">Title</span>
+        <input class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ taskForm.controls['title'].invalid && taskForm.controls['title'].touched ? 'border-error animate-error':taskForm.controls['title'].touched ? 'border-correct':''}}" type="text" formControlName="title" name="title" required="required">
+      </label>
+      <label class="block relative mb-4 w-full group">
+        <span class="text-blancb uppercase text-lg pl-2">Difficulty</span>
+        <select class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ taskForm.controls['difficulty'].invalid && taskForm.controls['difficulty'].touched ? 'border-error animate-error':taskForm.controls['difficulty'].touched ? 'border-correct':''}}" type="text" formControlName="difficulty" name="difficulty" required="required">
+          <option value="1" class="rounded-t-md">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5" class="rounded-b-md">5</option>
+        </select>
+      </label>
+      <label class="block relative mb-4 w-full group">
+        <span class="text-blancb uppercase text-lg pl-2">Description</span>
+        <textarea class="text-[#2b2b2b] resize-none h-40 border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ taskForm.controls['description'].invalid && taskForm.controls['description'].touched ? 'border-error animate-error':taskForm.controls['description'].touched ? 'border-correct':''}}" type="text" formControlName="description" name="description" required="required"></textarea>
+      </label>
+      <div class="w-full pb-4">
+        <button class="text-blancb float-right bg-blue-700 hover:bg-blue-800 disabled:hover:bg-blue-700 disabled:opacity-70 disabled:cursor-not-allowed outline-none font-medium rounded-full px-10 py-2 text-center mx-auto text-lg drop-shadow-xl" type="submit" [disabled]="!taskForm.valid">
+          Create
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

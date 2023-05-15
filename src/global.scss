@@ -47,13 +47,13 @@ ul {
 }
 
 .angular-editor-textarea {
-    height: 167px !important;
+    @apply outline-none focus:outline-none ring-0 focus:ring-0; 
+    transition: min-height 0.5s ease-in-out;
     border-radius: 1.5rem;
-    @media (max-width: 768px) {
-        height: 120px !important;
-    }
+    min-height: 0 !important;
     resize: none !important;
 }
-.angular-editor-textarea {
-    @apply outline-none focus:outline-none ring-0 focus:ring-0;
+
+.angular-editor-textarea:focus, .angular-editor-textarea:active {
+    min-height: 167px !important;
 }

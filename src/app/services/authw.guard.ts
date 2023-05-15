@@ -24,9 +24,10 @@ export class AuthwGuard {
   }
 
   async checkLogin(): Promise<boolean> {
-    console.log("Check")
     const loggedIn = await this.authService.isLoggedIn(true)
-    console.log("next")
+    if (!loggedIn) {
+      return this.router.navigateByUrl("/")
+    }
     return loggedIn;
   }
 

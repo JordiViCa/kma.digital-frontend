@@ -67,7 +67,11 @@ export class LoginComponent  implements OnInit {
         return;
       }
       this.tokenSVC.saveToken(el.jwt);
-      this.router.navigate(['/client', { username: this.registerForm.value.username }]);
+      if (el.employee) {
+        this.router.navigate(['/work']);
+      } else {
+        this.router.navigate(['/client', { username: this.registerForm.value.username }]);
+      }
     });
   }
 
@@ -84,7 +88,7 @@ export class LoginComponent  implements OnInit {
     }
     this.userSVC.createUser(params).subscribe((el: any) => {
       console.log('User created',el)
-      if (el == false) {
+      if (el) {
         return;
       }
       this.tokenSVC.saveToken(el.jwt);

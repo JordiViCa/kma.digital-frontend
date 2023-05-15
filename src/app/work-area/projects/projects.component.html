@@ -1,0 +1,18 @@
+<div class="h-screen z-0 bg-blauf flex flex-col lg:p-20 xl:p-32 px-4 pt-24 select-none overflow-hidden">
+  <div class="sm:mx-auto flex flex-col gap-2 text-blancb text-center py-10">
+      <h1 class="text-4xl sm:text-6xl font-extrabold uppercase flex flex-col md:flex-row">
+        <span>ALL PROJECTS</span>
+        <svg (click)="show = !show" xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mt-2 md:mr-0 md:my-auto cursor-pointer md:ml-10" viewBox="0 0 512 512"><path d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M256 176v160M336 256H176"/></svg>
+      </h1>
+  </div>
+  <div class="sm:mx-auto sm:mb-auto gap-5 sm:gap-10 justify-center text-blancb flex flex-wrap overflow-auto p-10">
+    <div [routerLink]="[project._id]" class="flex flex-grow basis-0 text-center flex-col gap-2 bg-blaum rounded-xl px-8 py-5 drop-shadow-md hover:drop-shadow-xl transition-all hover:scale-105 duration-500 cursor-pointer w-full" *ngFor="let project of projects">
+      <h2 class="text-xl sm:text-3xl font-semibold uppercase mt-auto whitespace-nowrap">{{ project.client.name }} {{ project.client.surname }}</h2>
+      <span class="font-extrabold text-2xl sm:text-4xl uppercase mb-auto whitespace-nowrap">{{ project.name }}</span>
+    </div>
+    <div class="flex flex-grow basis-0 text-center flex-col md:flex-row gap-2 bg-blaum rounded-xl px-8 py-5 drop-shadow-md hover:drop-shadow-xl transition-all hover:scale-105 duration-500 cursor-pointer" *ngIf="projects.length == 0">
+      <h2 class="text-xl sm:text-3xl font-semibold my-auto uppercase ml-auto sm:mr-0 mr-auto">There are no projects</h2>
+    </div>
+  </div>
+</div>
+<app-create-project [show]="show" (closePopup)="show = false"></app-create-project>

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProjectAreaComponent } from '../layouts/project-area/project-area.component';
 import { ChatComponent } from './chat/chat.component';
 import { ChatsComponent } from './chats/chats.component';
 import { CompleteRegisterComponent } from './complete-register/complete-register.component';
@@ -55,7 +54,6 @@ const routes: Routes = [
   },
   {
     path: 'projects/:id',
-    component: ProjectAreaComponent,
     data: {
       nav: 'translate-x-[100%]'
     },

@@ -19,14 +19,14 @@ export class AuthService {
   async isLoggedIn(work: boolean = false): Promise<boolean> {
     return new Promise(resolve => this.getActualUser().subscribe(
       (el: any) => {
-        console.log(el)
-        if (el != false) {
-          this._user = el;
+        if (!el) {
+          resolve(false)
         }
         if (work) {
-          resolve(this._user.employee != false);
+          resolve(el.data.employee != null);
+        } else {
+          resolve(el.data.employee == null)
         }
-        resolve(this._user != null);
       }
     ));
   }

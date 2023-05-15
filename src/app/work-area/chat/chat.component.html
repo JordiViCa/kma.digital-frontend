@@ -1,0 +1,101 @@
+<div class="h-screen z-0 bg-blauf flex select-none overflow-hidden">
+  <div class="bg-blancb md:pt-20 px-4 pt-4 gap-5 md:gap-3 flex-col w-full md:w-auto min-w-[300px] h-full">
+    <h1 class="text-4xl font-extrabold text-center mt-2 mb-2 cursor-pointer uppercase" [routerLink]="['/work/chat']">{{ idProject ? projectName:'CHATS'}}</h1>
+    <input [(ngModel)]="filter" type="text" class="w-full rounded-xl mb-4 bg-transparent">
+    <div *ngIf="!idProject" class="flex flex-col gap-5">
+      <div class="bg-blaum rounded-3xl relative flex flex-col tab overflow-hidden" *ngFor="let pr of projects | chats:filter" (click)="setProject(pr)">
+        <div class="relative py-4 px-2 shadow-md">
+          <span class="font-extrabold text-2xl my-auto uppercase min-w-[200px]">{{ pr.name }}<br><span class="text-xl" *ngIf="pr.chats">{{ getLength(pr.chats) }} CHATS</span></span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="absolute text-blancb h-10 w-10 right-2 top-1/2 -translate-y-1/2 transition-transform duration-500 {{ project == pr._id ? 'rotate-45':''}}" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M256 112v288M400 256H112"/></svg>
+        </div>
+        <div [ngStyle]="{'max-height': project == pr._id ? pr.chats.length*32+'px':'0px'}" class="transition-all duration-700 overflow-hidden">
+          <ng-container *ngFor="let chat of pr.chats">
+            <div *ngIf="!chat.resolt" [routerLink]="[pr._id == 'noProject' ? '/work/chat/'+chat._id:'/work/projects/'+pr._id+'/chat/'+chat._id]" class="hover:pl-6 pl-4 py-1 {{ chat.resolt ? 'opacity-50':''}} uppercase transition-all cursor-pointer duration-300">
+              {{ chat.titol | slice:0:25 }} {{ chat.titol.length > 25 ? '...':''}}
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="idProject" class="flex flex-col">
+      <div class="flex flex-col gap-5">
+        <ng-container *ngFor="let chat of chats | chats:filter">
+          <div [routerLink]="['/work/projects/'+idProject+'/chat/'+chat._id]" routerLinkActive="router-link-active"  class="hover:pl-6 {{ chat.resolt ? 'opacity-50':''}} pl-4 py-2 rounded-lg font-semibold uppercase transition-all cursor-pointer duration-300 bg-blaum">
+            {{ chat.titol | slice:0:20 }} {{ chat.titol.length > 20 ? '...':''}}
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="chat" class="bg-blauf w-full flex flex-col pt-20 md:pb-8 md:px-8 pb-4 px-2 ">
+    <h1 class="text-4xl lg:text-6xl font-extrabold uppercase text-center mb-5 text-blancb" [innerText]="chat.titol"></h1>
+    <form [formGroup]="chatForm" class="bg-blancb drop-shadow-lg md:h-full w-full rounded-3xl flex flex-col overflow-auto relative">
+      <div *ngIf="deleteChat" id="closeConfirmation" (mousedown)="closePopup($event,'deleteChat')" class="bg-[#00000080] w-full h-full absolute top-0 left-0 rounded-3xl backdrop-blur-sm flex z-20">
+        <div class="m-auto bg-blancb rounded-2xl p-5 shadow-lg">
+          <p class="text-2xl uppercase font-semibold mb-4 select-none">Confirm delete chat</p>
+          <div class="flex justify-around">
+            <button id="closeConfirmation" class="px-4 py-2 rounded-lg transition-all duration-300 font-semibold hover:bg-red-600 bg-red-500">Go back</button>
+            <button (click)="resolveChat()" class="px-4 py-2 rounded-lg transition-all duration-300 font-semibold hover:bg-green-600 bg-green-500">Delete</button>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="showConfig" id="closeConfirmation" (mousedown)="closePopup($event,'showConfig')" class="bg-[#00000080] w-full h-full absolute top-0 left-0 rounded-3xl backdrop-blur-sm flex z-20">
+        <div class="m-auto bg-blancb rounded-2xl p-5 shadow-lg">
+          <p class="text-2xl uppercase font-semibold mb-4 select-none">Chat config</p>
+          <form [formGroup]="chatUpdateForm">
+            <label class="block relative mb-4 w-full group">
+              <span class="text-[#2b2b2b] uppercase text-lg pl-2">Title</span>
+              <input class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ chatUpdateForm.controls['title'].invalid && chatUpdateForm.controls['title'].touched ? 'border-error animate-error':chatUpdateForm.controls['title'].touched ? 'border-correct':''}}" type="text" formControlName="title" name="title" required="required">
+            </label>
+            <label class="block relative mb-4 w-full group">
+              <span class="text-[#2b2b2b] uppercase text-lg pl-2">Project</span>
+              <div class="relative">
+                <input [placeholder]="chat.project ? chat.project.name:''" class="text-[#2b2b2b] disabled:opacity-50 border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ chatUpdateForm.controls['project'].invalid && chatUpdateForm.controls['project'].touched ? 'border-error animate-error':chatUpdateForm.controls['project'].touched ? 'border-correct':''}}" type="text" formControlName="project" name="project">
+                <svg *ngIf="projectSelected" (click)="unselectproject()" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-red-500 top-1/2 right-2 -translate-y-1/2 absolute" viewBox="0 0 512 512"><title>Close</title><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368"/></svg>
+              </div>
+              <ng-container *ngIf="!projectSelected">
+                <div *ngFor="let project of projectsUpdate; let i = index" class="absolute -bottom-2 flex flex-col gap-5 z-20 w-full" [ngStyle]="{'transform': 'translateY('+(i+1)*(100+2)+'%)'}">
+                  <p class="px-4 py-2 bg-blancb text-blauf font-semibold rounded-md w-full cursor-pointer drop-shadow-md" (click)="selectproject(project)">{{ project.name }} - {{ project.client.name }} {{ project.client.surname }}</p>
+                </div>
+              </ng-container>
+            </label>
+          </form>
+          <div class="flex justify-around">
+            <button id="closeConfirmation" class="px-4 py-2 rounded-lg transition-all duration-300 font-semibold hover:bg-red-600 bg-red-500">Exit</button>
+            <button (click)="saveUpdate()" class="px-4 py-2 rounded-lg transition-all duration-300 font-semibold hover:bg-green-600 bg-green-500">Save</button>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col overflow-y-auto pb-3 h-full mt-9" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+        <svg xmlns="http://www.w3.org/2000/svg" *ngIf="!chat.resolt" (click)="deleteChat = !deleteChat" class="h-6 absolute top-2 right-10 -translate-x-1/2 cursor-pointer hover:text-red-500 transition-all duration-500" viewBox="0 0 512 512"><path d="M296 64h-80a7.91 7.91 0 00-8 8v24h96V72a7.91 7.91 0 00-8-8z" fill="none"/><path fill="currentColor" d="M432 96h-96V72a40 40 0 00-40-40h-80a40 40 0 00-40 40v24H80a16 16 0 000 32h17l19 304.92c1.42 26.85 22 47.08 48 47.08h184c26.13 0 46.3-19.78 48-47l19-305h17a16 16 0 000-32zM192.57 416H192a16 16 0 01-16-15.43l-8-224a16 16 0 1132-1.14l8 224A16 16 0 01192.57 416zM272 400a16 16 0 01-32 0V176a16 16 0 0132 0zm32-304h-96V72a7.91 7.91 0 018-8h80a7.91 7.91 0 018 8zm32 304.57A16 16 0 01320 416h-.58A16 16 0 01304 399.43l8-224a16 16 0 1132 1.14z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" (click)="showConfig = !showConfig" class="h-6 absolute top-2 right-2 -translate-x-1/2 cursor-pointer hover:text-black"viewBox="0 0 512 512"><path d="M262.29 192.31a64 64 0 1057.4 57.4 64.13 64.13 0 00-57.4-57.4zM416.39 256a154.34 154.34 0 01-1.53 20.79l45.21 35.46a10.81 10.81 0 012.45 13.75l-42.77 74a10.81 10.81 0 01-13.14 4.59l-44.9-18.08a16.11 16.11 0 00-15.17 1.75A164.48 164.48 0 01325 400.8a15.94 15.94 0 00-8.82 12.14l-6.73 47.89a11.08 11.08 0 01-10.68 9.17h-85.54a11.11 11.11 0 01-10.69-8.87l-6.72-47.82a16.07 16.07 0 00-9-12.22 155.3 155.3 0 01-21.46-12.57 16 16 0 00-15.11-1.71l-44.89 18.07a10.81 10.81 0 01-13.14-4.58l-42.77-74a10.8 10.8 0 012.45-13.75l38.21-30a16.05 16.05 0 006-14.08c-.36-4.17-.58-8.33-.58-12.5s.21-8.27.58-12.35a16 16 0 00-6.07-13.94l-38.19-30A10.81 10.81 0 0149.48 186l42.77-74a10.81 10.81 0 0113.14-4.59l44.9 18.08a16.11 16.11 0 0015.17-1.75A164.48 164.48 0 01187 111.2a15.94 15.94 0 008.82-12.14l6.73-47.89A11.08 11.08 0 01213.23 42h85.54a11.11 11.11 0 0110.69 8.87l6.72 47.82a16.07 16.07 0 009 12.22 155.3 155.3 0 0121.46 12.57 16 16 0 0015.11 1.71l44.89-18.07a10.81 10.81 0 0113.14 4.58l42.77 74a10.8 10.8 0 01-2.45 13.75l-38.21 30a16.05 16.05 0 00-6.05 14.08c.33 4.14.55 8.3.55 12.47z" fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" [routerLink]="['/work/'+(idProject && chat ? 'projects/'+idProject+'/chat':'chat')]" class="h-6 absolute top-2 left-2 translate-x-1/2 cursor-pointer" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M112 160l-64 64 64 64"/><path d="M64 224h294c58.76 0 106 49.33 106 108v20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg>
+        <div class="px-4 py-1 max-w-[80%] {{ message.sender._id == userId ? 'ml-auto mt-3 mr-3 bg-blauc':'mr-auto mt-3 ml-3 bg-[#8db2d1]'}} rounded-xl drop-shadow-md" *ngFor="let message of chat.messages">
+          <div class="select-none">
+            <p class="text-sm uppercase font-medium border-b border-b-blancb px-2 py-2 mb-2 gap-10 flex justify-between w-full"><span>{{ message.sender.employee ? message.sender.employee.name : message.sender.client.name + " " + message.sender.client.surname }}</span><span>{{ message.sentDate | date:'dd-MM-yyyy HH:mm'}}</span></p>
+            <div [innerHTML]="message.text" class="break-words select-text pb-2"></div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 float-right {{ message.seenDate ? 'text-blue-500':'text-black' }}" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M464 128L240 384l-96-96M144 384l-96-96M368 128L232 284"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="mx-auto w-[96%] relative mb-2 md:mb-4">
+        <angular-editor [placeholder]="'You have any question?'" [config]="config" formControlName="htmlContent">
+        </angular-editor>
+        <svg (click)="sendMessage()" xmlns="http://www.w3.org/2000/svg" class="absolute bottom-2 right-4 h-6 w-6 cursor-pointer" viewBox="0 0 512 512"><path d="M16 464l480-208L16 48v160l320 48-320 48z"/></svg>
+      </div>
+    </form>
+  </div>
+  <div *ngIf="!chat" class="bg-blauf w-full flex flex-col pt-20 md:pb-8 md:px-8 pb-4 px-2">
+    <h1 class="text-4xl lg:text-6xl font-extrabold uppercase text-center mb-5 text-blancb">NEW CHAT</h1>
+    <form [formGroup]="newChatForm" class="bg-blancb drop-shadow-lg md:h-full w-full rounded-3xl flex flex-col overflow-auto">
+      <div class="flex flex-col overflow-y-auto pb-3 h-full" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+      </div>
+      <input class="text-[#2b2b2b] mb-4 border-b-2 w-[96%] mx-auto rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-colors duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ newChatForm.controls['title'].invalid && newChatForm.controls['title'].touched ? 'border-error animate-error':newChatForm.controls['title'].touched ? 'border-correct':''}}" type="text" maxlength="40" placeholder="Title" formControlName="title" name="title" required="required">
+      <div class="mx-auto w-[96%] relative mb-2 md:mb-4">
+        <angular-editor [placeholder]="'You have any question?'" [config]="config" formControlName="htmlContent">
+        </angular-editor>
+        <svg (click)="createChat()" xmlns="http://www.w3.org/2000/svg" class="absolute bottom-2 right-4 h-6 w-6 cursor-pointer" viewBox="0 0 512 512"><path d="M16 464l480-208L16 48v160l320 48-320 48z"/></svg>
+      </div>
+    </form>
+  </div>
+</div>

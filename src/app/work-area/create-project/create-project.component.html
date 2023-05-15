@@ -1,0 +1,32 @@
+<div *ngIf="show" (mousedown)="close($event)" id="closePopup" class="fixed p-3 top-0 bg-[#00000054] backdrop-blur-sm flex w-full h-full transition-all duration-200" (mousedown)="close($event)">
+  <div class="flex md:flex-row flex-col bg-gradient-to-t md:bg-transparent from-blauf to-blaum transition-all duration-500 w-full md:w-auto m-auto overflow-hidden rounded-xl drop-shadow-xl shadow-xl select-none">
+    <form (ngSubmit)="createProject()" class="flex flex-col mb-auto w-full p-10" [formGroup]="projectForm">
+      <h1 class="text-2xl lg:text-4xl font-extrabold uppercase text-center mb-5 text-blancb">CREATE PROJECT</h1>
+      <label class="block relative mb-4 w-full group">
+        <span class="text-blancb uppercase text-lg pl-2">Name</span>
+        <input class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ projectForm.controls['name'].invalid && projectForm.controls['name'].touched ? 'border-error animate-error':projectForm.controls['name'].touched ? 'border-correct':''}}" type="text" formControlName="name" name="name" required="required">
+      </label>
+      <label class="block relative mb-4 w-full group">
+        <span class="text-blancb uppercase text-lg pl-2">Domain</span>
+        <input class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ projectForm.controls['domain'].invalid && projectForm.controls['domain'].touched ? 'border-error animate-error':projectForm.controls['domain'].touched ? 'border-correct':''}}" type="text" formControlName="domain" name="domain" required="required">
+      </label>
+      <label class="block relative mb-4 w-full group">
+        <span class="text-blancb uppercase text-lg pl-2">Client</span>
+        <div class="relative">
+          <input class="text-[#2b2b2b] disabled:opacity-50 border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ projectForm.controls['client'].invalid && projectForm.controls['client'].touched ? 'border-error animate-error':projectForm.controls['client'].touched ? 'border-correct':''}}" type="text" formControlName="client" name="client" required="required">
+          <svg *ngIf="clientSelected" (click)="unselectClient()" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-red-500 top-1/2 right-2 -translate-y-1/2 absolute" viewBox="0 0 512 512"><title>Close</title><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368"/></svg>
+        </div>
+        <ng-container *ngIf="!clientSelected">
+          <div *ngFor="let client of clients" class="absolute -bottom-2 translate-y-full flex flex-col gap-5 z-20 w-full">
+            <p class="px-4 py-2 bg-blancb text-blauf font-semibold rounded-md w-full cursor-pointer drop-shadow-md" (click)="selectClient(client)">{{client.name}} {{client.surname}} - {{client.cif}}</p>
+          </div>
+        </ng-container>
+      </label>
+      <div class="w-full pb-4">
+        <button class="text-blancb float-right bg-blue-700 hover:bg-blue-800 disabled:hover:bg-blue-700 disabled:opacity-70 disabled:cursor-not-allowed outline-none font-medium rounded-full px-10 py-2 text-center mx-auto text-lg drop-shadow-xl" type="submit" [disabled]="!projectForm.valid">
+          Create
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
