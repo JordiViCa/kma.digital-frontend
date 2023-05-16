@@ -6,34 +6,42 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { TaskComponent } from './task/task.component';
 import { ChatComponent } from './chat/chat.component';
 import { ProjectComponent } from './project/project.component';
+import { ContactComponent } from './contact/contact.component';
 
 const routes: Routes = [
   {
     path: '',
     component: LandingComponent,
     data: {
-      nav: 'translate-x-[300%]'
+      nav: 'translate-x-[400%]'
     }
   },
   {
     path: 'projects',
     component: ProjectsComponent,
     data: {
-      nav: 'translate-x-[100%]'
+      nav: 'translate-x-[200%]'
+    }
+  },
+  {
+    path: 'contact',
+    component: ContactComponent,
+    data: {
+      nav: 'translate-x-0'
     }
   },
   {
     path: 'chat',
     component: ChatComponent,
     data: {
-      nav: 'translate-x-0'
+      nav: 'translate-x-[100%]'
     }
   },
   {
     path: 'chat/:idChat',
     component: ChatComponent,
     data: {
-      nav: 'translate-x-0'
+      nav: 'translate-x-[100%]'
     }
   },
   {

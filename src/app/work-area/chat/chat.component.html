@@ -1,17 +1,18 @@
 <div class="h-screen z-0 bg-blauf flex select-none overflow-hidden">
-  <div class="bg-blancb md:pt-20 px-4 pt-4 gap-5 md:gap-3 flex-col w-full md:w-auto min-w-[300px] h-full">
+  <button (click)="responsiveMenu = !responsiveMenu" class="uppercase bg-blancb text-blauf font-semibold absolute top-2 left-1/2 -translate-x-1/2 p-1 h-16 drop-shadow-md text-xl px-4 rounded-xl block md:hidden">{{ responsiveMenu ? 'All chats':(chat ? 'Go to chat':'New Chat')}}</button>
+  <div class="bg-blancb pt-20 px-4 gap-5 md:gap-3 flex-col w-full md:w-auto min-w-[300px] h-full overflow-hidden {{ responsiveMenu ? 'hidden':''}} md:flex">
     <h1 class="text-4xl font-extrabold text-center mt-2 mb-2 cursor-pointer uppercase" [routerLink]="['/work/chat']">{{ idProject ? projectName:'CHATS'}}</h1>
     <input [(ngModel)]="filter" type="text" class="w-full rounded-xl mb-4 bg-transparent">
-    <div *ngIf="!idProject" class="flex flex-col gap-5">
-      <div class="bg-blaum rounded-3xl relative flex flex-col tab overflow-hidden" *ngFor="let pr of projects | chats:filter" (click)="setProject(pr)">
-        <div class="relative py-4 px-2 shadow-md">
+    <div *ngIf="!idProject" class="flex flex-col gap-5 overflow-auto h-[80%] pr-1">
+      <div class="bg-blaum rounded-3xl relative flex flex-col tab" *ngFor="let pr of projects | chats:filter" (click)="setProject(pr)">
+        <div class="relative py-4 px-2 shadow-md rounded-3xl">
           <span class="font-extrabold text-2xl my-auto uppercase min-w-[200px]">{{ pr.name }}<br><span class="text-xl" *ngIf="pr.chats">{{ getLength(pr.chats) }} CHATS</span></span>
           <svg xmlns="http://www.w3.org/2000/svg" class="absolute text-blancb h-10 w-10 right-2 top-1/2 -translate-y-1/2 transition-transform duration-500 {{ project == pr._id ? 'rotate-45':''}}" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M256 112v288M400 256H112"/></svg>
         </div>
-        <div [ngStyle]="{'max-height': project == pr._id ? pr.chats.length*32+'px':'0px'}" class="transition-all duration-700 overflow-hidden">
+        <div [ngStyle]="{'max-height': project == pr._id ? pr.chats.length*32+'px':'0px'}" class="transition-all duration-700 overflow-hidden rounded-3xl">
           <ng-container *ngFor="let chat of pr.chats">
             <div *ngIf="!chat.resolt" [routerLink]="[pr._id == 'noProject' ? '/work/chat/'+chat._id:'/work/projects/'+pr._id+'/chat/'+chat._id]" class="hover:pl-6 pl-4 py-1 {{ chat.resolt ? 'opacity-50':''}} uppercase transition-all cursor-pointer duration-300">
-              {{ chat.titol | slice:0:25 }} {{ chat.titol.length > 25 ? '...':''}}
+              {{ chat.titol | slice:0:20 }} {{ chat.titol.length > 20 ? '...':''}}
             </div>
           </ng-container>
         </div>
@@ -27,9 +28,9 @@
       </div>
     </div>
   </div>
-  <div *ngIf="chat" class="bg-blauf w-full flex flex-col pt-20 md:pb-8 md:px-8 pb-4 px-2 ">
+  <div *ngIf="chat" class="bg-blauf w-full flex-col pt-20 md:pb-8 md:px-8 pb-4 px-2 {{ responsiveMenu ? 'flex':'hidden md:flex'}} ">
     <h1 class="text-4xl lg:text-6xl font-extrabold uppercase text-center mb-5 text-blancb" [innerText]="chat.titol"></h1>
-    <form [formGroup]="chatForm" class="bg-blancb drop-shadow-lg md:h-full w-full rounded-3xl flex flex-col overflow-auto relative">
+    <form [formGroup]="chatForm" class="bg-blancb drop-shadow-lg h-full w-full rounded-3xl flex flex-col overflow-auto relative">
       <div *ngIf="deleteChat" id="closeConfirmation" (mousedown)="closePopup($event,'deleteChat')" class="bg-[#00000080] w-full h-full absolute top-0 left-0 rounded-3xl backdrop-blur-sm flex z-20">
         <div class="m-auto bg-blancb rounded-2xl p-5 shadow-lg">
           <p class="text-2xl uppercase font-semibold mb-4 select-none">Confirm delete chat</p>
@@ -85,9 +86,9 @@
       </div>
     </form>
   </div>
-  <div *ngIf="!chat" class="bg-blauf w-full flex flex-col pt-20 md:pb-8 md:px-8 pb-4 px-2">
+  <div *ngIf="!chat" class="bg-blauf w-full flex-col pt-20 md:pb-8 md:px-8 pb-4 px-2 {{ responsiveMenu ? 'flex':'hidden md:flex'}}">
     <h1 class="text-4xl lg:text-6xl font-extrabold uppercase text-center mb-5 text-blancb">NEW CHAT</h1>
-    <form [formGroup]="newChatForm" class="bg-blancb drop-shadow-lg md:h-full w-full rounded-3xl flex flex-col overflow-auto">
+    <form [formGroup]="newChatForm" class="bg-blancb drop-shadow-lg h-full w-full rounded-3xl flex flex-col overflow-auto">
       <div class="flex flex-col overflow-y-auto pb-3 h-full" #scrollMe [scrollTop]="scrollMe.scrollHeight">
       </div>
       <input class="text-[#2b2b2b] mb-4 border-b-2 w-[96%] mx-auto rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-colors duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ newChatForm.controls['title'].invalid && newChatForm.controls['title'].touched ? 'border-error animate-error':newChatForm.controls['title'].touched ? 'border-correct':''}}" type="text" maxlength="40" placeholder="Title" formControlName="title" name="title" required="required">

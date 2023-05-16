@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { FilterCategoryPipe } from './filter-category.pipe';
 import { FilterTasksPipe } from './filter-tasks.pipe';
 import { ChatsPipe } from './chats.pipe';
+import { FilterContactPipe } from './filter-contact.pipe';
 
 
 
@@ -9,12 +10,14 @@ import { ChatsPipe } from './chats.pipe';
   declarations: [
     FilterCategoryPipe,
     FilterTasksPipe,
-    ChatsPipe
+    ChatsPipe,
+    FilterContactPipe
   ],
   exports: [
     FilterCategoryPipe,
     FilterTasksPipe,
-    ChatsPipe
+    ChatsPipe,
+    FilterContactPipe
   ]
 })
 export class SharedPipesModule { }

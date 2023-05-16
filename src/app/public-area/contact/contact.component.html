@@ -1,3 +1,31 @@
-<p>
-  contact works!
-</p>
+<div class="min-h-screen z-0 bg-blauf flex flex-col lg:flex-row lg:p-20 xl:p-32 px-4 pt-40 select-none overflow-hidden">
+    <div class="mb-auto mx-auto flex flex-col text-blancb gap-32 text-center relative">
+        <h1 class="text-4xl sm:text-6xl font-extrabold uppercase">CONTACT US</h1>
+        <img class="rounded-3xl max-h-96 mt-auto z-10" src="assets/contact-us/contact-us.png">
+        <img class="blur-3xl absolute bottom-0 z-0" src="assets/contact-us/contact-us.png">
+    </div>
+  </div>
+<div class="bg-gradient-to-b from-blauf to-blauf flex flex-col px-2 xl:px-52 py-20 gap-20 min-h-[50vh]">
+  <form [formGroup]="contactForm" class="flex flex-col bg-blancb my-auto rounded-3xl p-5 lg:py-16 lg:px-10">
+      <h1 class="text-2xl md:text-4xl mb-4 uppercase font-semibold text-center">Contact form</h1>
+      <label class="block relative mb-2 w-full group">
+          <span class="text-[#2b2b2b] uppercase text-lg pl-2">Title <span class="text-red-500">*</span></span>
+          <input placeholder="I want to ask information for..." class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ contactForm.controls['title'].invalid && contactForm.controls['title'].touched ? 'border-error animate-error':contactForm.controls['title'].touched ? 'border-correct':''}}" type="text" formControlName="title" name="title" required="required">
+      </label>
+      <div class="flex md:flex-row flex-col justify-between">
+          <label class="block relative mb-2 w-full md:w-[48%]  group">
+              <span class="text-[#2b2b2b] uppercase text-lg pl-2">Email <span class="text-red-500">*</span></span>
+              <input placeholder="an@email.com" class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ contactForm.controls['email'].invalid && contactForm.controls['email'].touched ? 'border-error animate-error':contactForm.controls['email'].touched ? 'border-correct':''}}" type="email" formControlName="email" name="email" required="required">
+          </label>
+          <label class="block relative mb-2 w-full md:w-[48%]  group">
+              <span class="text-[#2b2b2b] uppercase text-lg pl-2">Name <span class="text-red-500">*</span></span>
+              <input placeholder="" class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ contactForm.controls['name'].invalid && contactForm.controls['name'].touched ? 'border-error animate-error':contactForm.controls['name'].touched ? 'border-correct':''}}" type="text" formControlName="name" name="name" required="required">
+          </label>
+      </div>
+      <label class="block relative mb-2 w-full group">
+          <span class="text-[#2b2b2b] uppercase text-lg pl-2">Message <span class="text-red-500">*</span></span>
+          <textarea placeholder="Any questions?" class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ contactForm.controls['message'].invalid && contactForm.controls['message'].touched ? 'border-error animate-error':contactForm.controls['message'].touched ? 'border-correct':''}}" type="text" formControlName="message" name="message" required="required"></textarea>
+      </label>
+      <button class="text-base mx-auto mt-10 font-extrabold uppercase text-blancb py-2 px-6 rounded-full bg-blauf hover:scale-105 drop-shadow-md transition-all duration-300 cursor-pointer" (click)="sendContactForm()">Send</button>
+  </form>
+</div>

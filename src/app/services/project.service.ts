@@ -38,8 +38,24 @@ export class ProjectService {
     );
   }
 
+  updateProject(params: any, id: any): Observable<any> {
+    return this.http.put(environment.backendUrl + "projects/"+id, JSON.stringify(params), this.authSVC.getAuthHeader())
+    .pipe(
+      tap( res => res),
+      catchError(() => of(false))
+    );
+  }
+
   searchFiveProjects(text: any): Observable<any> {
     return this.http.get(environment.backendUrl + "projects/getfive/"+text, this.authSVC.getAuthHeader())
+    .pipe(
+      tap( res => res),
+      catchError(() => of(false))
+    );
+  }
+
+  getPublished(): Observable<any> {
+    return this.http.get(environment.backendUrl + "projects/published/all")
     .pipe(
       tap( res => res),
       catchError(() => of(false))

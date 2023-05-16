@@ -35,6 +35,8 @@ export class ChatComponent  implements OnInit {
   projectsUpdate: any;
   projectUpdate: any;
 
+  responsiveMenu: boolean = this.route.snapshot.paramMap.get('idChat') ? true:false;
+
 
   newChatForm: FormGroup = this.formBuilder.group({
     title: ["",[Validators.required, Validators.maxLength(40)]],
@@ -111,6 +113,9 @@ export class ChatComponent  implements OnInit {
             console.log("b",b)
             return (a.resolt === b.resolt)? 0 : a.resolt? 1 : -1;
           });;
+          if (chats.length == 0) {
+            this.responsiveMenu = true;
+          }
           this.chats = chats;
         }
       )
@@ -263,6 +268,7 @@ export class ChatComponent  implements OnInit {
       (msg: any) => {
         this.chatSVC.getChat(this.route.snapshot.paramMap.get('idChat')!).subscribe(
           (chat: any) => {
+            this.chatForm.get('htmlContent')?.patchValue("")
             this.chat = chat.data;
           }
         )

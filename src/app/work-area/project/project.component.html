@@ -1,3 +1,48 @@
-<p>
-  project works!
-</p>
+<div class="h-screen z-0 bg-blauf flex flex-col lg:p-20 xl:p-32 px-4 pt-24 select-none overflow-hidden">
+  <div *ngIf="project" class="sm:mx-auto flex flex-col gap-2 text-blancb text-center py-10">
+      <h1 class="text-4xl sm:text-6xl font-extrabold uppercase flex flex-col md:flex-row">
+        <span>{{ project.name }}</span>
+      </h1>
+  </div>
+  <form class="flex flex-row flex-wrap gap-10 mb-auto" [formGroup]="editForm">
+    <div class="flex flex-row flex-wrap gap-10 justify-center shadow-lg rounded-2xl p-5 bg-[#00000011] w-full">
+      <h2 class="w-full text-2xl lg:text-4xl uppercase font-extrabold text-blancb">Project information</h2>
+      <label class="block relative mb-4 w-full md:w-[48%] group">
+        <span class="text-blancb uppercase text-lg pl-2">Name</span>
+        <input class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ editForm.controls['name'].invalid && editForm.controls['name'].touched ? 'border-error animate-error':editForm.controls['name'].touched ? 'border-correct':''}}" type="text" formControlName="name" name="name" required="required">
+      </label>
+      <label class="block relative mb-4 w-full md:w-[48%] group">
+        <span class="text-blancb uppercase text-lg pl-2">Domain</span>
+        <input class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ editForm.controls['domain'].invalid && editForm.controls['domain'].touched ? 'border-error animate-error':editForm.controls['domain'].touched ? 'border-correct':''}}" type="text" formControlName="domain" name="domain" required="required">
+      </label>
+      <label class="block relative mb-4 w-full md:w-[48%] group">
+        <span class="text-blancb uppercase text-lg pl-2">Client</span>
+        <div class="relative">
+          <input class="text-[#2b2b2b] disabled:opacity-50 border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ editForm.controls['client'].invalid && editForm.controls['client'].touched ? 'border-error animate-error':editForm.controls['client'].touched ? 'border-correct':''}}" type="text" formControlName="client" name="client" required="required">
+          <svg *ngIf="clientSelected" (click)="unselectClient()" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-red-500 top-1/2 right-2 -translate-y-1/2 absolute" viewBox="0 0 512 512"><title>Close</title><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368"/></svg>
+        </div>
+        <ng-container *ngIf="!clientSelected">
+          <div *ngFor="let client of clients" class="absolute -bottom-2 translate-y-full flex flex-col gap-5 z-20 w-full">
+            <p class="px-4 py-2 bg-blancb text-blauf font-semibold rounded-md w-full cursor-pointer drop-shadow-md" (click)="selectClient(client)">{{client.name}} {{client.surname}} - {{client.cif}}</p>
+          </div>
+        </ng-container>
+      </label>
+      <label class="block relative mb-4 w-full md:w-[48%] group">
+        <span class="text-blancb uppercase text-lg pl-2">Image</span>
+        <input class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ editForm.controls['image'].invalid && editForm.controls['image'].touched ? 'border-error animate-error':editForm.controls['image'].touched ? 'border-correct':''}}" type="text" formControlName="image" name="image">
+      </label>
+      <label class="relative mb-4 w-full md:w-[28%] lg:w-[30%] group flex flex-col md:mr-auto">
+        <span class="text-blancb uppercase text-lg pl-2">Published</span>
+        <div class="relative items-center cursor-pointer ml-4 my-auto">
+          <input class="sr-only peer" type="checkbox" formControlName="public" name="public">
+          <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+        </div>
+      </label>
+    </div>
+    <div class="w-full pb-4">
+      <button (click)="sendForm()" class="text-blancb float-right bg-blue-700 hover:bg-blue-800 disabled:hover:bg-blue-700 disabled:opacity-70 disabled:cursor-not-allowed outline-none font-medium rounded-full px-10 py-2 text-center mx-auto text-lg drop-shadow-xl" type="submit" [disabled]="!editForm.valid">
+        Confirm changes
+      </button>
+    </div>
+  </form>
+</div>

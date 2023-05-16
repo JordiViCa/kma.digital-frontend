@@ -1,4 +1,4 @@
-<div class="h-screen z-0 bg-blauf flex flex-col lg:flex-row lg:p-20 xl:p-32 px-4 pt-40 select-none overflow-hidden">
+<div class="min-h-screen z-0 bg-blauf flex flex-col lg:flex-row lg:p-20 xl:p-32 px-4 pt-40 select-none overflow-hidden">
     <div class="lg:w-1/2 sm:m-auto flex flex-col gap-2 text-blancb">
         <h1 class="text-4xl sm:text-6xl font-extrabold uppercase">NEXT GEN <br class="hidden lg:block">WEB DEVELOPMENT</h1>
         <h2 class="text-xl sm:text-3xl font-semibold mb-3 uppercase">Your company one click away <br class="hidden lg:block"> from digitisation</h2>
@@ -45,7 +45,29 @@
     </div>
     <p class="text-xl sm:text-2xl font-bold text-blauf uppercase text-center mb-auto">We are open to use and expand our tecnology list!</p>
 </div>
-<div class="bg-gradient-to-b from-blaum to-blauf flex flex-col py-20 px-2 xl:px-52 gap-20 min-h-screen">
+<div class="bg-gradient-to-b from-blaum to-blauf flex flex-col px-2 xl:px-52 py-20 gap-20 min-h-screen">
+    <form [formGroup]="contactForm" class="flex flex-col bg-blancb my-auto rounded-3xl p-5 lg:py-16 lg:px-10">
+        <h1 class="text-2xl md:text-4xl mb-4 uppercase font-semibold text-center">Contact form</h1>
+        <label class="block relative mb-2 w-full group">
+            <span class="text-[#2b2b2b] uppercase text-lg pl-2">Title <span class="text-red-500">*</span></span>
+            <input placeholder="I want to ask information for..." class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ contactForm.controls['title'].invalid && contactForm.controls['title'].touched ? 'border-error animate-error':contactForm.controls['title'].touched ? 'border-correct':''}}" type="text" formControlName="title" name="title" required="required">
+        </label>
+        <div class="flex md:flex-row flex-col justify-between">
+            <label class="block relative mb-2 w-full md:w-[48%]  group">
+                <span class="text-[#2b2b2b] uppercase text-lg pl-2">Email <span class="text-red-500">*</span></span>
+                <input placeholder="an@email.com" class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ contactForm.controls['email'].invalid && contactForm.controls['email'].touched ? 'border-error animate-error':contactForm.controls['email'].touched ? 'border-correct':''}}" type="email" formControlName="email" name="email" required="required">
+            </label>
+            <label class="block relative mb-2 w-full md:w-[48%]  group">
+                <span class="text-[#2b2b2b] uppercase text-lg pl-2">Name <span class="text-red-500">*</span></span>
+                <input placeholder="" class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ contactForm.controls['name'].invalid && contactForm.controls['name'].touched ? 'border-error animate-error':contactForm.controls['name'].touched ? 'border-correct':''}}" type="text" formControlName="name" name="name" required="required">
+            </label>
+        </div>
+        <label class="block relative mb-2 w-full group">
+            <span class="text-[#2b2b2b] uppercase text-lg pl-2">Message <span class="text-red-500">*</span></span>
+            <textarea placeholder="Any questions?" class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ contactForm.controls['message'].invalid && contactForm.controls['message'].touched ? 'border-error animate-error':contactForm.controls['message'].touched ? 'border-correct':''}}" type="text" formControlName="message" name="message" required="required"></textarea>
+        </label>
+        <button class="text-base mx-auto mt-10 font-extrabold uppercase text-blancb py-2 px-6 rounded-full bg-blauf hover:scale-105 drop-shadow-md transition-all duration-300 cursor-pointer" (click)="sendContactForm()">Send</button>
+    </form>
 </div>
 <!-- 
      - Imatges sense h i amb padding pare, text amb mb auto aixi esta centrat adalt
