@@ -9,10 +9,10 @@
 </div>
 <div class="flex-col flex flex-grow basis-0">
   <ng-container *ngFor="let pack of projects; let i = index">
-    <div class="bg-gradient-to-b hidden md:flex {{ i == 0 ? 'from-blauf to-blaum':(i == projects.length - 1 ? 'from-blaum to-blauf':'bg-blaum')}} flex flex-col md:flex-row justify-center content-center flex-wrap py-20 px-2 lg:px-40 xl:px-60 gap-20 xl:gap-28 min-h-[40vh]">
+    <div class="bg-gradient-to-b hidden md:flex {{ projects.length == 1 ? 'bg-blauf':(i == 0 ? 'from-blauf to-blaum':(i == projects.length - 1 ? 'from-blaum to-blauf':'bg-blaum'))}} flex flex-col md:flex-row justify-center content-center flex-wrap py-20 px-2 lg:px-40 gap-20 xl:gap-28 min-h-[40vh]">
       <div class="bg-blancb p-4 rounded-xl hover:drop-shadow-2xl transition-all duration-500 drop-shadow-md flex flex-col flex-grow basis-0 max-w-[240px] max-h-[350px]" *ngFor="let el of pack">
         <h2 class="text-blauf font-extrabold uppercase text-xl text-center">{{ el.name }}</h2>
-        <a href="https://{{el.domain}}" target="_blank" class="m-auto"><img src="https://thinkingenglish.cat/wp-content/uploads/2022/06/logopng-87x105.png" class="hover:scale-125 transition-all duration-500" alt=""></a>
+        <a href="https://{{el.domain}}" target="_blank" class="m-auto"><img src="{{el.image}}" class="hover:scale-125 transition-all duration-500" alt=""></a>
         <a href="https://{{el.domain}}" target="_blank" class="text-blaum underline text-center font-bold mx-auto">{{ el.domain }}</a>
       </div>
     </div>
@@ -21,33 +21,9 @@
       <ng-container *ngFor="let pack of projects; let i = index">
         <div class="bg-blancb p-4 rounded-xl hover:drop-shadow-2xl transition-all duration-500 drop-shadow-md flex flex-col flex-grow basis-0 max-w-[240px] max-h-[350px]" *ngFor="let el of pack">
           <h2 class="text-blauf font-extrabold uppercase text-xl text-center">{{ el.name }}</h2>
-          <a href="https://{{el.domain}}" target="_blank" class="m-auto"><img src="https://thinkingenglish.cat/wp-content/uploads/2022/06/logopng-87x105.png" class="hover:scale-125 transition-all duration-500" alt=""></a>
+          <a href="https://{{el.domain}}" target="_blank" class="m-auto"><img src="{{el.image}}" class="hover:scale-125 transition-all duration-500" alt=""></a>
           <a href="https://{{el.domain}}" target="_blank" class="text-blaum underline text-center font-bold mx-auto">{{ el.domain }}</a>
         </div>
       </ng-container>
     </div>
-</div>
-<div *ngIf="projects.length == 1" class="bg-gradient-to-t from-blauf to-blaum flex flex-row justify-center flex-wrap py-20 px-2 lg:px-40 xl:px-60 gap-20 xl:gap-28 min-h-screen">
-  <form [formGroup]="contactForm" class="flex flex-col bg-blancb my-auto rounded-3xl p-5 lg:py-16 lg:px-10">
-      <h1 class="text-2xl md:text-4xl mb-4 uppercase font-semibold text-center">Contact form</h1>
-      <label class="block relative mb-2 w-full group">
-          <span class="text-[#2b2b2b] uppercase text-lg pl-2">Title <span class="text-red-500">*</span></span>
-          <input placeholder="I want to ask information for..." class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ contactForm.controls['title'].invalid && contactForm.controls['title'].touched ? 'border-error animate-error':contactForm.controls['title'].touched ? 'border-correct':''}}" type="text" formControlName="title" name="title" required="required">
-      </label>
-      <div class="flex md:flex-row flex-col justify-between">
-          <label class="block relative mb-2 w-full md:w-[48%]  group">
-              <span class="text-[#2b2b2b] uppercase text-lg pl-2">Email <span class="text-red-500">*</span></span>
-              <input placeholder="an@email.com" class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ contactForm.controls['email'].invalid && contactForm.controls['email'].touched ? 'border-error animate-error':contactForm.controls['email'].touched ? 'border-correct':''}}" type="email" formControlName="email" name="email" required="required">
-          </label>
-          <label class="block relative mb-2 w-full md:w-[48%]  group">
-              <span class="text-[#2b2b2b] uppercase text-lg pl-2">Name <span class="text-red-500">*</span></span>
-              <input placeholder="" class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ contactForm.controls['name'].invalid && contactForm.controls['name'].touched ? 'border-error animate-error':contactForm.controls['name'].touched ? 'border-correct':''}}" type="text" formControlName="name" name="name" required="required">
-          </label>
-      </div>
-      <label class="block relative mb-2 w-full group">
-          <span class="text-[#2b2b2b] uppercase text-lg pl-2">Message <span class="text-red-500">*</span></span>
-          <textarea placeholder="Any questions?" class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ contactForm.controls['message'].invalid && contactForm.controls['message'].touched ? 'border-error animate-error':contactForm.controls['message'].touched ? 'border-correct':''}}" type="text" formControlName="message" name="message" required="required"></textarea>
-      </label>
-      <button (click)="sendContactForm()">Send</button>
-  </form>
 </div>

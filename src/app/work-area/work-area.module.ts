@@ -15,6 +15,7 @@ import { CreateTaskComponent } from './create-task/create-task.component';
 import { TaskComponent } from './task/task.component';
 import { SharedPipesModule } from '../pipes/shared-pipes.module';
 import { ContactComponent } from './contact/contact.component';
+import { UserComponent } from './user/user.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { ContactComponent } from './contact/contact.component';
     CreateCategoryComponent,
     CreateTaskComponent,
     TaskComponent,
-    ContactComponent
+    ContactComponent,
+    UserComponent
   ],
   imports: [
     CommonModule,

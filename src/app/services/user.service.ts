@@ -62,4 +62,26 @@ export class UserService {
     );
   }
   
+  updateEmployee(params: any): Observable<any> {
+    return this.http.put(environment.backendUrl + "auth/employee", JSON.stringify(params), this.authSVC.getAuthHeader())
+    .pipe(
+      tap( res => res)
+    );
+  }
+
+  changePassword(params: any): Observable<any> {
+    return this.http.put(environment.backendUrl + "auth/changepassword", JSON.stringify(params), this.authSVC.getAuthHeader())
+    .pipe(
+      tap( res => res)
+    );
+  }
+
+  createWorker(params: any): Observable<any> {
+    return this.http.post(environment.backendUrl + "auth/employee", JSON.stringify(params), this.authSVC.getAuthHeader())
+    .pipe(
+      tap( res => res),
+      catchError(() => of(false))
+    );
+  }
+  
 }

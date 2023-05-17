@@ -11,7 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LandingComponent  implements OnInit {
 
-  projects: Project[] = [];
+  projects: any[] = [];
   name: string = "";
   constructor(
     private projectSVC: ProjectService,
@@ -19,16 +19,18 @@ export class LandingComponent  implements OnInit {
   ) {
     this.userSVC.getActualUser().subscribe(
       (user: any) => {
-        if (user.client) {
-          this.name = user.client.name + " " + user.client.surname
+        if (user.data.client) {
+          this.name = user.data.client.name + " " + user.data.client.surname
         }
       }
     )
   }
 
   ngOnInit() {
-    this.projectSVC.getProjects().subscribe((el: Project[]) => {
-      this.projects = el;
+    this.projectSVC.getProjects().subscribe(
+      (el: any) => {
+        console.log(el)
+      this.projects = el.data;
     })
   }
 

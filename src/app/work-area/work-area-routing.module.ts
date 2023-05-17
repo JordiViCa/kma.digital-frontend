@@ -7,6 +7,7 @@ import { TaskComponent } from './task/task.component';
 import { ChatComponent } from './chat/chat.component';
 import { ProjectComponent } from './project/project.component';
 import { ContactComponent } from './contact/contact.component';
+import { UserComponent } from './user/user.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,13 @@ const routes: Routes = [
     component: ProjectsComponent,
     data: {
       nav: 'translate-x-[200%]'
+    }
+  },
+  {
+    path: 'user',
+    component: UserComponent,
+    data: {
+      nav: 'translate-x-[300%]'
     }
   },
   {

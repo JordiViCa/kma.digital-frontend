@@ -52,8 +52,24 @@ ul {
     border-radius: 1.5rem;
     min-height: 0 !important;
     resize: none !important;
+    max-height: 30vh;
+    min-height: 40px !important;   
 }
 
-.angular-editor-textarea:focus, .angular-editor-textarea:active {
+.angular-editor-textarea:focus, .angular-editor-textarea:active, .angular-editor-textarea:not(:empty), .angular-editor-textarea:focus-within {
     min-height: 167px !important;
+}
+.angular-editor-toolbar-set:focus + .angular-editor-textarea {
+    min-height: 167px !important;
+} 
+.angular-editor-toolbar-set:focus-within + .angular-editor-textarea {
+    min-height: 167px !important;
+}
+.angular-editor-toolbar-set:active + .angular-editor-textarea {
+    min-height: 167px !important;
+}
+
+.ae-picker-options {
+    transform: translateY(-100%) !important;
+    top: 0 !important;
 }

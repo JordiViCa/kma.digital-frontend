@@ -15,6 +15,8 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ChatComponent  implements OnInit {
 
+  // Mirar que si l'ha enviat un administrador nomes marqui llegit un client i viceversa  
+
   idProject: any;
 
   toggleViewChats: boolean = false;
@@ -28,6 +30,7 @@ export class ChatComponent  implements OnInit {
   filter: string = "";
   deleteChat: boolean = false;
   showConfig: boolean = false;
+  idChat: string = "";
 
   search: any = setTimeout(() => {}, 0);
 
@@ -108,11 +111,10 @@ export class ChatComponent  implements OnInit {
     if (this.idProject) {
       this.chatSVC.getProjectChats(this.idProject).subscribe(
         (el: any) => {
-          let chats = el.data.sort((a: any, b: any) => {
-            console.log("a",a)
-            console.log("b",b)
-            return (a.resolt === b.resolt)? 0 : a.resolt? 1 : -1;
-          });;
+          console.log(el)
+          let chats = el.data.sort((a:any,b:any) => (a.horaSolicitud > b.horaSolicitud) ? 1 : ((b.horaSolicitud > a.horaSolicitud) ? -1 : 0))
+          chats = chats.sort((a: any, b: any) => (a.unreaded < b.unreaded) ? 1 : ((b.unreaded < a.unreaded) ? -1 : 0));
+          chats = chats.sort((a: any, b: any) => (a.resolt === b.resolt)? 0 : a.resolt? 1 : -1);
           if (chats.length == 0) {
             this.responsiveMenu = true;
           }
@@ -130,18 +132,25 @@ export class ChatComponent  implements OnInit {
           this.projects = projects.data;
           this.chatSVC.getAllChats().subscribe(
             (chat: any) => {
-              console.log("Chats",chat)
+              console.log("Chats",chat[0])
               this.projects.map(
                 (pr: any) => {
                   console.log("Projects",pr)
+                  let totalUnreaded = 0
                   pr.chats = [];
                   chat.data.forEach(
                     (chat: any) => {
                       if (chat.project && chat.project._id == pr._id) {
                         pr.chats.push(chat)
+                        if (chat.unreaded > 0) {
+                          console.log(chat.unreaded)
+                          totalUnreaded += chat.unreaded; 
+                        }
                       }
                     }
                   )
+                  pr.unreaded = totalUnreaded;
+                  totalUnreaded = 0;
                   return pr;
                 }
               )
@@ -170,33 +179,7 @@ export class ChatComponent  implements OnInit {
 
   ngOnInit() {
     if (this.route.snapshot.paramMap.get('idChat')) {
-      this.chatSVC.getChat(this.route.snapshot.paramMap.get('idChat')!).subscribe(
-        (chat: any) => {
-          this.chat = chat.data;
-          console.log(chat)
-          this.chatUpdateForm.patchValue({
-            title: chat.data.titol
-          })
-          this.toggleViewChats = true;
-          this.userSVC.getActualUser().subscribe(
-            (user: any) => {
-              this.userId = user.data._id;
-              this.chat.messages.forEach(
-                (message: any) => {
-                  console.log(message.sender._id, this.userId)
-                  if (message.sender._id != this.userId && !message.seenDate) {
-                    this.chatSVC.markAsRead(message._id).subscribe(
-                      (message: any) => {
-                        console.log(message)
-                      }
-                    )
-                  }
-                }
-              )
-            }
-          )
-        }
-      )
+      this.startChat()
     }
     this.chatUpdateForm.get("project")?.valueChanges.subscribe(
       (value: any) => {
@@ -212,6 +195,44 @@ export class ChatComponent  implements OnInit {
         }, 1000)
       }
     );
+  }
+
+  startChat() {
+    this.chatSVC.getChat(this.route.snapshot.paramMap.get('idChat')!).subscribe(
+      (chat: any) => {
+        this.chat = chat.data;
+        console.log(chat)
+        this.chatUpdateForm.patchValue({
+          title: chat.data.titol
+        })
+        this.toggleViewChats = true;
+        this.userSVC.getActualUser().subscribe(
+          (user: any) => {
+            this.userId = user.data._id;
+            this.chat.messages.forEach(
+              (message: any) => {
+                console.log(message.sender, this.userId)
+                if (message)
+                if (message.sender._id != this.userId && !message.seenDate && !message.sender.employee) {
+                  this.chatSVC.markAsRead(message._id).subscribe(
+                    (message: any) => {
+                      console.log(message)
+                    }
+                  )
+                }
+              }
+            )
+          }
+        )
+        setTimeout(() => {
+          console.log("In")
+          if (this.router.url == "/work/chat/"+this.route.snapshot.paramMap.get('idChat') || this.router.url == "/work/projects/"+this.route.snapshot.paramMap.get('idProject')+"/chat/"+this.route.snapshot.paramMap.get('idChat'))  {
+            console.log("Continue")
+            this.startChat();
+          }
+        }, 5000);
+      }
+    )
   }
 
   getValue(pr: any) {

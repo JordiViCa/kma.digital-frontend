@@ -17,7 +17,7 @@
           <svg *ngIf="clientSelected" (click)="unselectClient()" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-red-500 top-1/2 right-2 -translate-y-1/2 absolute" viewBox="0 0 512 512"><title>Close</title><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368"/></svg>
         </div>
         <ng-container *ngIf="!clientSelected">
-          <div *ngFor="let client of clients" class="absolute -bottom-2 translate-y-full flex flex-col gap-5 z-20 w-full">
+          <div *ngFor="let client of clients; let i = index" class="absolute -bottom-2 translate-y-full flex flex-col gap-5 z-20 w-full" [ngStyle]="{'transform': 'translateY('+(i+1)*(100+2)+'%)'}">
             <p class="px-4 py-2 bg-blancb text-blauf font-semibold rounded-md w-full cursor-pointer drop-shadow-md" (click)="selectClient(client)">{{client.name}} {{client.surname}} - {{client.cif}}</p>
           </div>
         </ng-container>

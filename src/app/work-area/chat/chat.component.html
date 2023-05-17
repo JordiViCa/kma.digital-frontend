@@ -4,25 +4,41 @@
     <h1 class="text-4xl font-extrabold text-center mt-2 mb-2 cursor-pointer uppercase" [routerLink]="['/work/chat']">{{ idProject ? projectName:'CHATS'}}</h1>
     <input [(ngModel)]="filter" type="text" class="w-full rounded-xl mb-4 bg-transparent">
     <div *ngIf="!idProject" class="flex flex-col gap-5 overflow-auto h-[80%] pr-1">
-      <div class="bg-blaum rounded-3xl relative flex flex-col tab" *ngFor="let pr of projects | chats:filter" (click)="setProject(pr)">
+      <div class="bg-blaum rounded-3xl relative flex flex-col tab cursor-pointer" *ngFor="let pr of projects | chats:filter" (click)="setProject(pr)">
         <div class="relative py-4 px-2 shadow-md rounded-3xl">
-          <span class="font-extrabold text-2xl my-auto uppercase min-w-[200px]">{{ pr.name }}<br><span class="text-xl" *ngIf="pr.chats">{{ getLength(pr.chats) }} CHATS</span></span>
-          <svg xmlns="http://www.w3.org/2000/svg" class="absolute text-blancb h-10 w-10 right-2 top-1/2 -translate-y-1/2 transition-transform duration-500 {{ project == pr._id ? 'rotate-45':''}}" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M256 112v288M400 256H112"/></svg>
+          <span class="font-extrabold text-2xl my-auto uppercase min-w-[200px]">
+            {{ pr.name }}
+            <br>
+            <span class="text-xl" *ngIf="pr.chats">
+              {{ getLength(pr.chats) }} CHATS 
+              <span class="w-10 h-10 flex absolute top-1/4 right-2 -translate-y-1/2">
+                <span class="drop-shadow-lg font-extrabold rounded-full bg-red-500 m-auto text-blancb text-base w-7 h-7 flex">
+                  <span class="m-auto relative">{{ pr.unreaded }}<span class="m-auto animate-ping absolute top-0 left-0" *ngIf="pr.unreaded != 0">{{ pr.unreaded }}</span></span>
+                </span>
+              </span>
+            </span>
+          </span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="absolute text-blancb h-10 w-10 right-2 bottom-1/4 translate-y-1/2 transition-transform duration-500 {{ project == pr._id ? 'rotate-45':''}}" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M256 112v288M400 256H112"/></svg>
         </div>
         <div [ngStyle]="{'max-height': project == pr._id ? pr.chats.length*32+'px':'0px'}" class="transition-all duration-700 overflow-hidden rounded-3xl">
           <ng-container *ngFor="let chat of pr.chats">
-            <div *ngIf="!chat.resolt" [routerLink]="[pr._id == 'noProject' ? '/work/chat/'+chat._id:'/work/projects/'+pr._id+'/chat/'+chat._id]" class="hover:pl-6 pl-4 py-1 {{ chat.resolt ? 'opacity-50':''}} uppercase transition-all cursor-pointer duration-300">
-              {{ chat.titol | slice:0:20 }} {{ chat.titol.length > 20 ? '...':''}}
+            <div *ngIf="!chat.resolt" [routerLink]="[pr._id == 'noProject' ? '/work/chat/'+chat._id:'/work/projects/'+pr._id+'/chat/'+chat._id]" class="hover:pl-6 pl-4 py-1 {{ chat.resolt ? 'opacity-50':''}} uppercase transition-all cursor-pointer duration-300 flex">
+              <span class="my-auto">{{ chat.titol | slice:0:15 }} {{ chat.titol.length > 15 ? '...':''}}</span> <span class="lowercase bg-red-500 rounded-md text-blancb font-semibold my-auto w-6 h-6 text-center flex ml-2" *ngIf="chat.unreaded != 0"><span class="m-auto relative">{{ chat.unreaded }}<span class="m-auto animate-ping absolute top-0 left-0" *ngIf="chat.unreaded != 0">{{ chat.unreaded }}</span></span></span>
             </div>
           </ng-container>
         </div>
       </div>
     </div>
-    <div *ngIf="idProject" class="flex flex-col">
+    <div *ngIf="idProject" class="flex flex-col gap-5 overflow-auto h-[80%]">
       <div class="flex flex-col gap-5">
         <ng-container *ngFor="let chat of chats | chats:filter">
-          <div [routerLink]="['/work/projects/'+idProject+'/chat/'+chat._id]" routerLinkActive="router-link-active"  class="hover:pl-6 {{ chat.resolt ? 'opacity-50':''}} pl-4 py-2 rounded-lg font-semibold uppercase transition-all cursor-pointer duration-300 bg-blaum">
-            {{ chat.titol | slice:0:20 }} {{ chat.titol.length > 20 ? '...':''}}
+          <div [routerLink]="['/work/projects/'+idProject+'/chat/'+chat._id]" routerLinkActive="router-link-active"  class="hover:pl-6 {{ chat.resolt ? 'opacity-50':''}} pl-4 py-2 rounded-lg font-semibold uppercase transition-all cursor-pointer duration-300 bg-blaum flex">
+            <span class="my-auto">{{ chat.titol | slice:0:15 }} {{ chat.titol.length > 15 ? '...':''}}</span>
+            <span class="lowercase bg-red-500 rounded-md text-blancb font-semibold my-auto w-6 h-6 text-center flex ml-2" *ngIf="chat.unreaded != 0">
+              <span class="m-auto relative">{{ chat.unreaded }}
+                <span class="m-auto animate-ping absolute top-0 left-0" *ngIf="chat.unreaded != 0">{{ chat.unreaded }}</span>
+              </span>
+            </span>
           </div>
         </ng-container>
       </div>
