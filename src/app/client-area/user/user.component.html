@@ -5,8 +5,8 @@
         <div class="flex flex-row flex-wrap justify-center gap-10 shadow-lg rounded-2xl p-5 bg-[#00000011] w-full">
           <h2 class="w-full text-2xl lg:text-4xl uppercase font-extrabold">User information</h2>
           <label class="block relative mb-4 w-full md:w-[28%] lg:w-[30%] group">
-            <span class="text-blancb uppercase text-lg pl-2">Username</span>
-            <input class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ editForm.controls['username'].invalid && editForm.controls['username'].touched ? 'border-error animate-error':editForm.controls['username'].touched ? 'border-correct':''}}" type="text" formControlName="username" name="username" required="required">
+            <span class="text-blancb uppercase text-lg pl-2">Email</span>
+            <input class="text-[#2b2b2b] opacity-50 border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ editForm.controls['username'].invalid && editForm.controls['username'].touched ? 'border-error animate-error':editForm.controls['username'].touched ? 'border-correct':''}}" type="text" formControlName="username" name="username" required="required">
           </label>
           <label class="block relative mb-4 w-full md:w-[28%] lg:w-[30%] group">
             <span class="text-blancb uppercase text-lg pl-2">Name</span>
@@ -42,5 +42,31 @@
           </button>
         </div>
       </form>
+      <form [formGroup]="changePasswordForm" class="flex flex-row flex-wrap gap-5 shadow-lg justify-center rounded-2xl p-5 bg-[#00000011] w-full">
+        <h2 class="w-full text-2xl lg:text-4xl uppercase font-extrabold text-blancb">Change password</h2>
+        <label class="block relative mb-4 w-full md:w-[28%] lg:w-[30%] group">
+          <span class="text-blancb uppercase text-lg pl-2">Old password</span>
+          <input class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ changePasswordForm.controls['passwordo'].invalid && changePasswordForm.controls['passwordo'].touched ? 'border-error animate-error':changePasswordForm.controls['passwordo'].touched ? 'border-correct':''}}" type="password" formControlName="passwordo" name="passwordo" required="required">
+        </label>
+        <label class="block relative mb-4 w-full md:w-[28%] lg:w-[30%] group">
+          <span class="text-blancb uppercase text-lg pl-2">Password</span>
+          <input class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ changePasswordForm.controls['password'].invalid && changePasswordForm.controls['password'].touched ? 'border-error animate-error':changePasswordForm.controls['password'].touched ? 'border-correct':''}}" type="password" formControlName="password" name="password" required="required">
+        </label>
+        <label class="block relative mb-4 w-full md:w-[28%] lg:w-[30%] group">
+          <span class="text-blancb uppercase text-lg pl-2">Repeat password</span>
+          <input class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ changePasswordForm.controls['passwordr'].invalid && changePasswordForm.controls['passwordr'].touched ? 'border-error animate-error':changePasswordForm.controls['passwordr'].touched ? 'border-correct':''}}" type="password" formControlName="passwordr" name="passwordr" required="required">
+        </label>
+        <div class="w-full pb-4">
+          <button (click)="changePassword()" class="text-blancb float-right bg-blue-700 hover:bg-blue-800 disabled:hover:bg-blue-700 disabled:opacity-70 disabled:cursor-not-allowed outline-none font-medium rounded-full px-10 py-2 text-center mx-auto text-lg drop-shadow-xl" type="submit" [disabled]="!changePasswordForm.valid">
+            Change password
+          </button>
+        </div>
+      </form>
+  </div>
+</div>
+<div (mousedown)="closePopup($event)" id="closePopup" *ngIf="showD" class="fixed flex bg-[#00000070] top-0 left-0 z-10 backdrop-blur-sm w-screen h-screen">
+  <div class="m-auto bg-white p-10 rounded-2xl flex flex-col max-w-[95vw] md:max-w-[60vw] max-h-[90vh] overflow-auto">
+    <h1 class=" text-4xl md:text-6xl uppercase font-semibold mb-5">User updated</h1>
+    <button id="closePopup" class="px-4 py-2 bg-red-500 hover:bg-red-600 rounded-full text-white font-semibold">CLOSE</button>
   </div>
 </div>

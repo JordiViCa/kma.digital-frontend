@@ -48,7 +48,7 @@
     </form>
   </div>
 </div>
-<div (mousedown)="closePopup($event)" id="closePopup" *ngIf="showD" class="absolute flex bg-[#00000070] top-0 left-0 z-10 backdrop-blur-sm w-screen h-screen">
+<div (mousedown)="closePopup($event)" id="closePopup" *ngIf="showD" class="fixed flex bg-[#00000070] top-0 left-0 z-10 backdrop-blur-sm w-screen h-screen">
   <div class="m-auto bg-white p-10 rounded-2xl flex flex-col max-w-[95vw] md:max-w-[60vw] max-h-[90vh] overflow-auto">
     <h1 class=" text-4xl md:text-6xl uppercase font-semibold mb-5">User updated</h1>
     <button id="closePopup" class="px-4 py-2 bg-red-500 hover:bg-red-600 rounded-full text-white font-semibold">CLOSE</button>

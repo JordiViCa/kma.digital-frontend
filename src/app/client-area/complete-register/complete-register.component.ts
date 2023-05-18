@@ -30,6 +30,9 @@ export class CompleteRegisterComponent  implements OnInit {
     });
     this.userSVC.getActualUser().subscribe(
       (el: any) => {
+        if (el.data.client) {
+          this.router.navigateByUrl("/client")
+        }
         this.registerForm.get('username')?.patchValue(el.data.email);
       }
     )

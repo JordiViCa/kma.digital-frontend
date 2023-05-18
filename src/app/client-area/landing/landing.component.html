@@ -7,10 +7,7 @@
     <ng-container *ngFor="let project of projects; let i = index">
       <div [routerLink]="['projects/'+project._id]" class="flex text-center flex-col md:flex-row gap-2 bg-blaum my-2 rounded-xl px-8 py-5 drop-shadow-md hover:drop-shadow-xl transition-all hover:scale-105 duration-500 cursor-pointer" *ngIf="i < 3">
         <h2 class="text-xl sm:text-3xl font-semibold my-auto uppercase">Project</h2>
-        <span class="font-extrabold text-2xl sm:text-4xl my-auto uppercase md:mr-10">{{ project.name }}</span>
-        <span [routerLink]="['projects/'+project.id+'/chat']" class="absolute drop-shadow-lg top-2 md:top-1/2 md:-translate-y-1/2 right-2 ml-auto mr-auto md:mr-0 font-extrabold rounded-full bg-red-500 text-blancb text-2xl sm:text-4xl md:w-14 md:h-14 w-10 h-10 flex">
-          <span class="m-auto relative">1<span class="m-auto animate-ping absolute top-0 left-0">1</span></span>
-        </span>
+        <span class="font-extrabold text-2xl sm:text-4xl my-auto uppercase">{{ project.name }}</span>
       </div>
     </ng-container>
   </div>

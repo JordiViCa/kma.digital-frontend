@@ -12,6 +12,14 @@ export class UserComponent  implements OnInit {
 
   editForm: FormGroup;
 
+  showD: boolean = false;
+
+  changePasswordForm = this.formBuilder.group({
+    passwordo: ['',[Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/)]],
+    password: ['',[Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/)]],
+    passwordr: ["",[Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/)]],
+  });
+
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -42,6 +50,12 @@ export class UserComponent  implements OnInit {
 
   ngOnInit() {}
 
+  closePopup(event: any) {
+    if (event.target.id == "closePopup") {
+      this.showD = false;
+    }
+  }
+
   completeEdit() {
     console.log("Complete edit")
     if (this.editForm.invalid) {
@@ -58,7 +72,31 @@ export class UserComponent  implements OnInit {
     }
     this.userSVC.updateClient(params).subscribe(
       (el: any) => {
-        console.log(el)
+        if (!el) {
+          return
+        }
+        this.showD = true;
+      }
+    )
+  }
+
+  changePassword() {
+    if (this.changePasswordForm.invalid) {
+      this.changePasswordForm.markAllAsTouched();
+      return;
+    }
+    let params: any = {
+      passwordo: this.changePasswordForm.value.passwordo,
+      password: this.changePasswordForm.value.password
+    }
+    this.userSVC.changePassword(params).subscribe(
+      (user: any) => {
+        if (!user) {
+          return;
+        }
+        this.showD = true;
+        this.changePasswordForm.reset()
+        console.log(user)
       }
     )
   }

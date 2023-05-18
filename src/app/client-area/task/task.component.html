@@ -1,0 +1,29 @@
+<div *ngIf="task" class="w-full h-full flex overflow-auto py-20" id="goBack" (mousedown)="goBack($event)">
+  <div class="mx-4 md:mx-20 bg-white w-full h-full shadow-md rounded-3xl p-4 md:p-10 relative flex flex-col mb-auto border-t-2" [ngStyle]="{'border-top-color': task.category.color}">
+    <div class="flex flex-col-reverse md:flex-row gap-5">
+      <p id="title" [innerText]="title" class="uppercase md:w-1/2 text-3xl rounded-lg w-full disabled:bg-transparent font-semibold p-2"></p>
+      <div class="flex justify-between md:w-1/2 w-full mb-auto my-auto text-xl">
+        <p><span class="font-semibold">Category:</span> <span class="border-b ml-2" [ngStyle]="{'border-bottom-color': task.category.color}">{{ task.category.name }}</span></p>
+        <p class="flex"><span class="my-auto mr-2"><span class="font-semibold">Difficulty:</span> {{ task.difficulty }}</span> <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-500 my-auto" viewBox="0 0 512 512"><path fill="currentColor" d="M394 480a16 16 0 01-9.39-3L256 383.76 127.39 477a16 16 0 01-24.55-18.08L153 310.35 23 221.2a16 16 0 019-29.2h160.38l48.4-148.95a16 16 0 0130.44 0l48.4 149H480a16 16 0 019.05 29.2L359 310.35l50.13 148.53A16 16 0 01394 480z"/></svg></p>
+      </div>
+    </div>
+    <hr class="border-b-2 mt-2 mb-4 border-b-blauf">
+    <div class="flex flex-col md:flex-row gap-5 md:justify-between overflow-hidden h-full">
+      <p id="description" [innerText]="description" class="text-justify md:w-1/2 h-full min-h-[50%] max-h-full inline-block p-2 break-words rounded-lg w-full overflow-auto"></p>
+      <div class="flex flex-col md:w-1/2 rounded-xl relative gap-2 min-h-[40%]">
+        <p class="text-2xl uppercase font-semibold mb-4 select-none flex">Tracked hours - {{ calcHours(task.tracking) }}</p>
+        <div class="overflow-auto flex flex-col gap-2 pr-2 pb-2">
+          <ng-container *ngFor="let track of task.tracking">
+            <p class="bg-blancb px-2 py-1 rounded-md shadow-md select-none flex justify-between" *ngIf="track.endTrack">
+              <span>{{ track.employee.name }} - {{ getHours(track) }}</span> 
+              <span class="flex gap-2">
+                <span class="opacity-50 my-auto">{{ track.startTrack | date:'dd-mm-yyy'}}</span> 
+              </span>
+            </p>
+          </ng-container>
+        </div>
+        <p *ngIf="task.tracking.length < 1 || !task.tracking[0].endTrack" class="bg-blancb px-2 py-1 rounded-md shadow-md select-none font-semibold uppercase text-center">There are no tracked hours</p>
+      </div>
+    </div>
+  </div>
+</div>

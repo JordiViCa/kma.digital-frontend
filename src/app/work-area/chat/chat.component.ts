@@ -164,12 +164,23 @@ export class ChatComponent  implements OnInit {
               )
               console.log("No Project",noProject)
               if (noProject.length != 0) {
+                let totalUnreaded = 0
+                chat.data.forEach(
+                    (chat: any) => {
+                      if (chat.unreaded > 0) {
+                        console.log(chat.unreaded)
+                        totalUnreaded += chat.unreaded; 
+                      }
+                    }
+                  )
                 this.projects.push({
                   name: 'No project',
                   chats: noProject,
-                  _id: 'noProject'
+                  _id: 'noProject',
+                  unreaded: totalUnreaded
                 })
               }
+              console.log("PR",this.projects,"PROJECTS")
             }
           )
         }
@@ -215,8 +226,8 @@ export class ChatComponent  implements OnInit {
                 if (message)
                 if (message.sender._id != this.userId && !message.seenDate && !message.sender.employee) {
                   this.chatSVC.markAsRead(message._id).subscribe(
-                    (message: any) => {
-                      console.log(message)
+                    (msg: any) => {
+                      message.seenDate = new Date;
                     }
                   )
                 }

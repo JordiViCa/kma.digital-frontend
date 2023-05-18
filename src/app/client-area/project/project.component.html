@@ -1,3 +1,25 @@
-<p>
-  project works!
-</p>
+<div class="h-screen z-0 bg-blauf flex flex-col lg:p-20 xl:p-32 px-4 pt-20 pb-4 select-none overflow-hidden">
+  <div *ngIf="project" class="sm:mx-auto flex flex-col gap-2 text-blancb text-center pb-10 md:py-10">
+      <h1 class="text-4xl sm:text-6xl font-extrabold uppercase flex flex-col md:flex-row">
+        <span>{{ project.name }}</span>
+      </h1>
+  </div>
+  <form class="flex flex-row flex-wrap gap-0 mb-auto overflow-auto" [formGroup]="editForm">
+    <div class="flex flex-row flex-wrap gap-5 justify-center shadow-lg rounded-2xl p-5 bg-[#00000011] w-full">
+      <h2 class="w-full text-2xl lg:text-4xl uppercase font-extrabold text-blancb">Project information</h2>
+      <label class="block relative mb-4 w-full md:w-[48%] group">
+        <span class="text-blancb uppercase text-lg pl-2">Name</span>
+        <input class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ editForm.controls['name'].invalid && editForm.controls['name'].touched ? 'border-error animate-error':editForm.controls['name'].touched ? 'border-correct':''}}" type="text" formControlName="name" name="name" required="required">
+      </label>
+      <label class="block relative mb-4 w-full md:w-[48%] group">
+        <span class="text-blancb uppercase text-lg pl-2">Domain</span>
+        <input class="text-[#2b2b2b] border-b-2 w-full rounded-xl border-0 drop-shadow-md hover:drop-shadow-lg focus:drop-shadow-lg shadow-sm focus:shadow-lg transition-all duration-200 outline-none focus:outline-none ring-0 focus:ring-0 {{ editForm.controls['domain'].invalid && editForm.controls['domain'].touched ? 'border-error animate-error':editForm.controls['domain'].touched ? 'border-correct':''}}" type="text" formControlName="domain" name="domain" required="required">
+      </label>
+      <div class="w-full pb-4">
+        <button (click)="sendForm()" class="text-blancb float-right bg-blue-700 hover:bg-blue-800 disabled:hover:bg-blue-700 disabled:opacity-70 disabled:cursor-not-allowed outline-none font-medium rounded-full px-10 py-2 text-center mx-auto text-lg drop-shadow-xl" type="submit" [disabled]="!editForm.valid">
+          Confirm changes
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

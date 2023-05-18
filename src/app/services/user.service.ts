@@ -72,7 +72,8 @@ export class UserService {
   changePassword(params: any): Observable<any> {
     return this.http.put(environment.backendUrl + "auth/changepassword", JSON.stringify(params), this.authSVC.getAuthHeader())
     .pipe(
-      tap( res => res)
+      tap( res => res),
+      catchError(() => of(false))
     );
   }
 

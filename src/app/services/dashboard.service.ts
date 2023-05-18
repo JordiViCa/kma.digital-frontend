@@ -63,6 +63,15 @@ export class DashboardService {
     );
   }
 
+  createErrorTask(params: any): Observable<any> {
+    return this.http.post(environment.backendUrl + "dashboard/errortask", JSON.stringify(params), this.authSVC.getAuthHeader())
+    .pipe(
+      tap(res => res),
+      catchError(() => of(false))
+    );
+  }
+
+
   editTask(params: any,id: any): Observable<any> {
     return this.http.put(environment.backendUrl + "dashboard/task/"+id, JSON.stringify(params), this.authSVC.getAuthHeader())
     .pipe(

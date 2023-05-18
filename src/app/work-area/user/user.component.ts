@@ -110,13 +110,12 @@ export class UserComponent  implements OnInit {
 
   changePassword() {
     if (this.changePasswordForm.invalid) {
-      this.userForm.markAllAsTouched();
+      this.changePasswordForm.markAllAsTouched();
       return;
     }
     let params: any = {
       passwordo: this.changePasswordForm.value.passwordo,
-      password: this.changePasswordForm.value.password,
-      user: this.user._id
+      password: this.changePasswordForm.value.password
     }
     this.userSVC.changePassword(params).subscribe(
       (user: any) => {

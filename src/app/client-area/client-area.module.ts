@@ -8,11 +8,10 @@ import { ProjectsComponent } from './projects/projects.component';
 import { UserComponent } from './user/user.component';
 import { WorkComponent } from './work/work.component';
 import { CompleteRegisterComponent } from './complete-register/complete-register.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularEditorModule } from '@kolkov/angular-editor';
-import { ChatsComponent } from './chats/chats.component';
-import { ChatAreaComponent } from './chat-area/chat-area.component';
-import { ChatSelectorComponent } from './chat-selector/chat-selector.component';
+import { SharedPipesModule } from '../pipes/shared-pipes.module';
+import { TaskComponent } from './task/task.component';
 
 
 
@@ -25,15 +24,15 @@ import { ChatSelectorComponent } from './chat-selector/chat-selector.component';
     UserComponent,
     WorkComponent,
     CompleteRegisterComponent,
-    ChatsComponent,
-    ChatAreaComponent,
-    ChatSelectorComponent
+    TaskComponent
   ],
   imports: [
     CommonModule,
     ClientAreaRoutingModule,
     ReactiveFormsModule,
-    AngularEditorModule
+    AngularEditorModule,
+    SharedPipesModule,
+    FormsModule
   ]
 })
 export class ClientAreaModule { }

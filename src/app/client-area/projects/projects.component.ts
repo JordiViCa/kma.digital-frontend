@@ -9,15 +9,15 @@ import { ProjectService } from 'src/app/services/project.service';
 })
 export class ProjectsComponent  implements OnInit {
 
-  projects: Project[] = [];
+  projects: any[] = [];
 
   constructor(
     private projectSVC: ProjectService
   ) { }
 
   ngOnInit() {
-    this.projectSVC.getProjects().subscribe((el: Project[]) => {
-      this.projects = el;
+    this.projectSVC.getProjects().subscribe((el: any) => {
+      this.projects = el.data;
     })
   }
 

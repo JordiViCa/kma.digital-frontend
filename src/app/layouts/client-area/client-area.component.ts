@@ -14,6 +14,8 @@ export class ClientAreaComponent  implements OnInit {
   toggleLogin: boolean = false;
   actualroute: string = "";
   disableAll: boolean = false;
+  secondNav: string = "";
+  idProject: string = "";
 
   constructor(
     private router: Router, 
@@ -33,10 +35,14 @@ export class ClientAreaComponent  implements OnInit {
 
   ngOnInit() {
     this.actualroute = this.route.firstChild!.snapshot.data['nav']
+    this.secondNav = this.route.firstChild!.snapshot.data['secondnav'];
+    this.idProject = this.route.firstChild!.snapshot.paramMap.get('idProject')!;
     this.router.events.pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd)).subscribe(
       (el: any) => {
-        console.log("a")
-        this.actualroute = this.route.firstChild!.snapshot.data['nav'];
+        console.log(this.route)
+        this.actualroute = this.route.firstChild!.snapshot.data['nav']
+        this.secondNav = this.route.firstChild!.snapshot.data['secondnav'];
+        this.idProject = this.route.firstChild!.snapshot.paramMap.get('idProject')!;
       }
     );
   }

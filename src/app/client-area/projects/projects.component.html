@@ -1,11 +1,16 @@
 <div class="h-screen z-0 bg-blauf flex flex-col lg:p-20 xl:p-32 px-4 pt-24 select-none overflow-hidden">
   <div class="sm:mx-auto flex flex-col gap-2 text-blancb text-center py-10">
-      <h1 class="text-4xl sm:text-6xl font-extrabold uppercase">YOUR PROJECTS</h1>
+      <h1 class="text-4xl sm:text-6xl font-extrabold uppercase flex flex-col md:flex-row">
+        <span>YOUR PROJECTS</span>
+      </h1>
   </div>
   <div class="sm:mx-auto sm:mb-auto gap-5 sm:gap-10 justify-center text-blancb flex flex-wrap overflow-auto p-10">
-    <div [routerLink]="[project.id]" class="flex flex-grow basis-0 text-center flex-col md:flex-row gap-2 bg-blaum rounded-xl px-8 py-5 drop-shadow-md hover:drop-shadow-xl transition-all hover:scale-105 duration-500 cursor-pointer" *ngFor="let project of projects">
-      <h2 class="text-xl sm:text-3xl font-semibold my-auto uppercase ml-auto sm:mr-0 mr-auto">Project</h2>
-      <span class="font-extrabold text-2xl sm:text-4xl my-auto mr-auto sm:ml-0 ml-auto uppercase">{{ project.name }}</span>
+    <div [routerLink]="[project._id]" class="flex flex-grow basis-0 text-center flex-col gap-2 bg-blaum rounded-xl px-8 py-5 drop-shadow-md hover:drop-shadow-xl transition-all hover:scale-105 duration-500 cursor-pointer w-full" *ngFor="let project of projects">
+      <h2 class="text-xl sm:text-3xl font-semibold uppercase mt-auto whitespace-nowrap">{{ project.client.name }} {{ project.client.surname }}</h2>
+      <span class="font-extrabold text-2xl sm:text-4xl uppercase mb-auto whitespace-nowrap">{{ project.name }}</span>
+    </div>
+    <div class="flex flex-grow basis-0 text-center flex-col md:flex-row gap-2 bg-blaum rounded-xl px-8 py-5 drop-shadow-md hover:drop-shadow-xl transition-all hover:scale-105 duration-500 cursor-pointer" *ngIf="projects.length == 0">
+      <h2 class="text-xl sm:text-3xl font-semibold my-auto uppercase ml-auto sm:mr-0 mr-auto">There are no projects</h2>
     </div>
   </div>
 </div>
