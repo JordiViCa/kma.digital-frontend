@@ -10,3 +10,9 @@ services:
       - ./vhost.conf:/vhosts/kmadigital.conf:ro
       - /etc/ssl/kmacerts:/certs
       - ./www:/app
+    networks:
+      kmadigital-backend_backend:
+        ipv4_address: 192.168.11.10
+networks:
+  kmadigital-backend_backend:
+    external: true

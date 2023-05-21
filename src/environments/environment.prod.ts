@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  backendUrl: "https://kma.digital/api/"
+  backendUrl: "https://api.kma.digital/api/"
 };
