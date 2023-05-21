@@ -12,8 +12,8 @@
         </div>
     </nav>
     <router-outlet></router-outlet>
-    <footer class="text-center text-sm py-5 bg-blauf text-blancb">
-        © kma.digital 2023
+    <footer class="text-center text-sm py-5 bg-blauf text-blancb flex gap-5 justify-center">
+        <span>© kma.digital 2023</span><a href="assets/privacy-policy.pdf" target="_blank">Privacy policy</a>
     </footer>
     <app-login class="{{ toggleLogin ? 'z-10':'-z-10'}}" [toggleLogin]="toggleLogin" (closePopUp)="toggleLogin = false"></app-login>
 </div>
