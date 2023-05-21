@@ -13,6 +13,7 @@ $RECYCLE.BIN/
 log.txt
 
 android
+apkKey.jks
 
 /.sourcemaps
 /.versions
