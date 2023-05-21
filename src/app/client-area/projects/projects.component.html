@@ -9,8 +9,8 @@
       <h2 class="text-xl sm:text-3xl font-semibold uppercase mt-auto whitespace-nowrap">{{ project.client.name }} {{ project.client.surname }}</h2>
       <span class="font-extrabold text-2xl sm:text-4xl uppercase mb-auto whitespace-nowrap">{{ project.name }}</span>
     </div>
-    <div class="flex flex-grow basis-0 text-center flex-col md:flex-row gap-2 bg-blaum rounded-xl px-8 py-5 drop-shadow-md hover:drop-shadow-xl transition-all hover:scale-105 duration-500 cursor-pointer" *ngIf="projects.length == 0">
-      <h2 class="text-xl sm:text-3xl font-semibold my-auto uppercase ml-auto sm:mr-0 mr-auto">There are no projects</h2>
+    <div class="flex text-center flex-col md:flex-row gap-2 bg-blaum rounded-xl px-8 py-5 drop-shadow-md hover:drop-shadow-xl transition-all hover:scale-105 duration-500 cursor-pointer" *ngIf="projects.length == 0">
+      <h2 class="text-xl sm:text-3xl font-semibold m-auto uppercase" [routerLink]="['/client/chat']">Request a new project</h2>
     </div>
   </div>
 </div>
