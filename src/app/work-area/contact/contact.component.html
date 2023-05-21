@@ -14,8 +14,8 @@
       <div (click)="selectContact(contact)" *ngFor="let contact of contactf | filterContact:filter; let i = index" class="text-blancb flex w-full md:w-auto h-min rounded-lg bg-blaum px-4 py-2 uppercase font-semibold cursor-pointer shadow-md hover:shadow-xl transition-all duration-300">
         <span class="my-auto">{{ contact.name }}: {{ contact.title }} {{ contact.created | date:'mm:hh dd-MM-yyyy' }}</span> <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 float-right ml-4 my-auto {{ contact.seen ? 'text-green-400':'text-black' }}" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M464 128L240 384l-96-96M144 384l-96-96M368 128L232 284"/></svg>
       </div>
-      <div class="flex flex-grow basis-0 text-center flex-col md:flex-row gap-2 bg-blaum rounded-xl px-8 py-5 drop-shadow-md hover:drop-shadow-xl transition-all hover:scale-105 duration-500 cursor-pointer" *ngIf="contactf.length == 0">
-        <h2 class="text-xl sm:text-3xl font-semibold my-auto uppercase ml-auto sm:mr-0 mr-auto">There are no contact submissions</h2>
+      <div class="flex text-center flex-col md:flex-row gap-2 bg-blaum rounded-xl px-8 py-5 drop-shadow-md hover:drop-shadow-xl transition-all hover:scale-105 duration-500 cursor-pointer" *ngIf="contactf.length == 0">
+        <h2 class="text-xl sm:text-3xl font-semibold m-auto uppercase">There are no contact submissions</h2>
       </div>
     </div>
   </div>
