@@ -69,8 +69,9 @@
         <button class="text-base mx-auto mt-10 font-extrabold uppercase text-blancb py-2 px-6 rounded-full bg-blauf hover:scale-105 drop-shadow-md transition-all duration-300 cursor-pointer" (click)="sendContactForm()">Send</button>
     </form>
 </div>
-<!-- 
-     - Imatges sense h i amb padding pare, text amb mb auto aixi esta centrat adalt
-     - Afegir el contingut que falta per deixar-ho finiquitado
-     - fer footer i cuadrar els colors
--->
+<div (mousedown)="closePopup($event)" id="closePopup" *ngIf="show" class="fixed flex bg-[#00000070] top-0 left-0 z-10 backdrop-blur-sm w-screen h-screen">
+    <div class="m-auto bg-white p-10 rounded-2xl flex flex-col max-w-[95vw] md:max-w-[60vw] max-h-[90vh] overflow-auto">
+      <h1 class=" text-4xl md:text-6xl uppercase font-semibold mb-5">Contact form sent</h1>
+      <button id="closePopup" class="px-4 py-2 bg-red-500 hover:bg-red-600 rounded-full text-white font-semibold">CLOSE</button>
+    </div>
+</div>
