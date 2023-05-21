@@ -27,7 +27,7 @@ export class ClientAreaComponent  implements OnInit {
         console.log("USER",user)
         if (!user.data.client) { 
           this.disableAll = true;
-          router.navigate(['/client/completeRegister']);
+          this.router.navigate(['/client/completeRegister']);
         }
       }
     )
@@ -40,6 +40,19 @@ export class ClientAreaComponent  implements OnInit {
     this.router.events.pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd)).subscribe(
       (el: any) => {
         console.log(this.route)
+        if (this.disableAll == true) {
+          this.userSVC.getActualUser().subscribe(
+            (user: any) => {
+              console.log("USER",user)
+              if (!user.data.client) { 
+                this.disableAll = true;
+                this.router.navigate(['/client/completeRegister']);
+              } else {
+                this.disableAll = false;
+              }
+            }
+          )
+        }
         this.actualroute = this.route.firstChild!.snapshot.data['nav']
         this.secondNav = this.route.firstChild!.snapshot.data['secondnav'];
         this.idProject = this.route.firstChild!.snapshot.paramMap.get('idProject')!;
