@@ -61,7 +61,7 @@ export class LoginComponent  implements OnInit {
     }
     this.userSVC.loginUser(params).subscribe((el: any) => {
       console.log('User logged',el)
-      if (el == false) {
+      if (!el) {
         this.loginForm.controls["username"].setErrors({invalid: true})
         this.loginForm.controls["password"].setErrors({invalid: true})
         return;
@@ -88,11 +88,16 @@ export class LoginComponent  implements OnInit {
     }
     this.userSVC.createUser(params).subscribe((el: any) => {
       console.log('User created',el)
-      if (el) {
+      if (!el) {
+        this.registerForm.controls["username"].setErrors({invalid: true})
+        this.registerForm.controls["password"].setErrors({invalid: true})
+        this.registerForm.controls["password"].setErrors({invalid: true})
         return;
       }
       this.tokenSVC.saveToken(el.jwt);
-      this.router.navigate(['/client/completeRegister', { username: this.registerForm.value.username }]);
+      setTimeout(() => {
+        this.router.navigate(['/client', { username: this.registerForm.value.username }]);
+      }, 300);
     });
   }
 
