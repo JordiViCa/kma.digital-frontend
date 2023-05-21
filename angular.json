@@ -102,6 +102,9 @@
             "production": {
               "browserTarget": "app:build:production"
             },
+            "apk": {
+              "browserTarget": "app:build:apk"
+            },
             "development": {
               "browserTarget": "app:build:development"
             },
